@@ -1,0 +1,172 @@
+# =====================================================================
+# Decap CMS configuration for Bhram Realty
+#
+# Auth:   Netlify Identity (email + password) via git-gateway
+# Media:  Cloudinary (uploads go directly to your Cloudinary cloud,
+#         only the URL is stored in the .md file)
+#
+# After cloning to GitHub + Netlify, replace the two placeholders
+# at the bottom of this file:
+#   YOUR_CLOUDINARY_CLOUD_NAME
+#   YOUR_CLOUDINARY_API_KEY
+# =====================================================================
+
+backend:
+  name: git-gateway
+  branch: main
+
+# Local-fallback media folder (only used if Cloudinary is removed below).
+# Decap won't actually write here while the Cloudinary integration is active.
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+# Editorial workflow lets you save drafts before publishing.
+publish_mode: editorial_workflow
+
+# Show the live site in a side-by-side preview.
+site_url: "/"
+display_url: "/"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "projects"
+    create: true
+    delete: true
+    extension: "md"
+    format: "yaml-frontmatter"
+    slug: "{{slug}}"
+    summary: "{{name}} — {{location}}"
+    identifier_field: "name"
+    fields:
+      # ----- Basic -----
+      - { name: "name", label: "Project Name", widget: "string" }
+      - {
+          name: "meta_description",
+          label: "SEO description (used in <head>)",
+          widget: "text",
+          required: false,
+        }
+
+      # ----- Hero -----
+      - name: "hero_image"
+        label: "Hero Image"
+        widget: "object"
+        fields:
+          - { name: "src", label: "Image", widget: "image" }
+          - { name: "alt", label: "Alt text", widget: "string" }
+
+      - {
+          name: "status_badge",
+          label: "Status badge (e.g. Pre-Leasing, Ready, Under Construction)",
+          widget: "string",
+        }
+      - {
+          name: "category_badge",
+          label: "Category badge (e.g. Luxury Flats, Commercial, Plots)",
+          widget: "string",
+        }
+      - { name: "location", label: "Location", widget: "string" }
+      - {
+          name: "rera",
+          label: "RERA Number",
+          widget: "string",
+          hint: "Without the 'RERA' prefix — e.g. P12345678",
+        }
+
+      # ----- Quick Facts (repeatable) -----
+      - name: "facts"
+        label: "Quick Facts (4 recommended)"
+        widget: "list"
+        min: 1
+        max: 8
+        summary: "{{fields.label}} — {{fields.value}}"
+        fields:
+          - { name: "label", label: "Label", widget: "string" }
+          - {
+              name: "value",
+              label: "Value",
+              widget: "string",
+              hint: "HTML entities allowed (e.g. &#8377; for ₹).",
+            }
+
+      # ----- About -----
+      - { name: "about_headline", label: "About — Headline", widget: "string" }
+      - { name: "about_body", label: "About — Body", widget: "text" }
+
+      # ----- Gallery -----
+      - {
+          name: "gallery_headline",
+          label: "Gallery — Headline",
+          widget: "string",
+        }
+      - name: "gallery"
+        label: "Gallery Images"
+        widget: "list"
+        min: 1
+        max: 12
+        summary: "{{fields.alt}}"
+        fields:
+          - { name: "src", label: "Image", widget: "image" }
+          - { name: "alt", label: "Alt text", widget: "string" }
+
+      # ----- Highlights -----
+      - {
+          name: "highlights_headline",
+          label: "Highlights — Headline",
+          widget: "string",
+        }
+      - name: "highlights"
+        label: "Highlights (4 cards)"
+        widget: "list"
+        min: 1
+        max: 8
+        summary: "{{fields.title}}"
+        fields:
+          - {
+              name: "icon",
+              label: "Icon (Material Symbols name)",
+              widget: "string",
+              hint: "See https://fonts.google.com/icons — use the 'name' (e.g. deck, eco, shield).",
+            }
+          - { name: "title", label: "Title", widget: "string" }
+          - { name: "description", label: "Description", widget: "text" }
+
+      # ----- Location -----
+      - {
+          name: "location_headline",
+          label: "Location — Headline",
+          widget: "string",
+        }
+      - { name: "location_body", label: "Location — Body", widget: "text" }
+      - {
+          name: "map_query",
+          label: "Map search query",
+          widget: "string",
+          hint: "Used to build the Google Maps URL. E.g. 'Dharampeth Nagpur'.",
+        }
+      - name: "map_image"
+        label: "Map image"
+        widget: "object"
+        fields:
+          - { name: "src", label: "Image", widget: "image" }
+          - { name: "alt", label: "Alt text", widget: "string" }
+
+# =====================================================================
+# Cloudinary integration — uploads go to YOUR Cloudinary account.
+# Replace the two placeholders below with values from
+# https://console.cloudinary.com/console
+#   - cloud_name: top-left of your Cloudinary dashboard
+#   - api_key:    Settings → Access Keys → API Key (NOT the Secret)
+# =====================================================================
+media_library:
+  name: cloudinary
+  output_filename_only: false
+  config:
+    cloud_name: YOUR_CLOUDINARY_CLOUD_NAME
+    api_key: YOUR_CLOUDINARY_API_KEY
+    multiple: false
+    default_transformations:
+      - - fetch_format: "auto"
+          quality: "auto"

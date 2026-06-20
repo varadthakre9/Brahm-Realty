@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Careers | Bhram Realty</title>
+<meta name="description" content="Join Bhram Realty. Explore open roles across architecture, design, sales, and operations."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface": "#faf9f6", "surface-container-highest": "#e3e2de", "background": "#faf9f6",
+          "tertiary": "#5d5f5a", "on-primary": "#ffffff", "surface-container": "#efede9",
+          "secondary": "#5f5e5a", "on-surface": "#1b1c1b", "inverse-surface": "#30302f",
+          "surface-variant": "#e3e2de", "on-background": "#1b1c1b",
+          "on-primary-container": "#554300", "primary-fixed-dim": "#e9c349",
+          "surface-bright": "#faf9f6", "surface-container-lowest": "#ffffff",
+          "on-surface-variant": "#4d463d", "secondary-fixed-dim": "#c8c6c2",
+          "inverse-primary": "#e9c349", "outline": "#7f7669", "primary-container": "#d4af37",
+          "surface-tint": "#735c00", "surface-container-high": "#e9e8e4",
+          "inverse-on-surface": "#f2f0ed", "surface-dim": "#dbdad7",
+          "surface-container-low": "#f5f3f0", "primary": "#735c00",
+          "outline-variant": "#d0c5b5"
+        },
+        "borderRadius": {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+        "spacing": {"margin-mobile": "20px", "gutter": "24px", "container-max": "1440px", "margin-desktop": "80px"},
+        "fontFamily": {
+          "headline-lg": ["Playfair Display"], "headline-md": ["Playfair Display"],
+          "body-md": ["Inter"], "label-sm": ["Inter"],
+          "headline-lg-mobile": ["Playfair Display"], "display-lg-mobile": ["Playfair Display"],
+          "label-md": ["Inter"], "body-lg": ["Inter"], "display-lg": ["Playfair Display"]
+        },
+        "fontSize": {
+          "headline-lg": ["48px", {"lineHeight": "56px", "fontWeight": "600"}],
+          "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "500"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+          "headline-lg-mobile": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+          "display-lg-mobile": ["40px", {"lineHeight": "48px", "fontWeight": "700"}],
+          "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+          "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+          "display-lg": ["64px", {"lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+        }
+      }
+    }
+  };
+</script>
+<style>
+  html { -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { letter-spacing: -0.015em; }
+  .eyebrow { letter-spacing: 0.28em; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300; }
+  .signature-font { font-family: 'Playfair Display', serif; font-style: italic; }
+  .signature-shadow { box-shadow: 0 24px 50px -28px rgba(40,35,18,0.22); }
+  .card-hover { transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s ease; }
+  .card-hover:hover { transform: translateY(-4px); box-shadow: 0 40px 70px -32px rgba(40,35,18,0.32); }
+  body { min-height: 100dvh; }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden antialiased">
+
+<!-- ============ HEADER ============ -->
+<header id="site-header" class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-md">
+  <nav class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <a href="index.html" class="font-headline-md text-xl md:text-2xl tracking-[0.2em] text-on-surface uppercase font-semibold">BHRAM REALTY</a>
+    <div class="hidden md:flex items-center gap-10">
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="projects.html">Portfolio</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="media.html">Media</a>
+      <a class="text-primary font-semibold font-label-md text-label-md uppercase tracking-[0.18em]" href="careers.html">Careers</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="index.html#philosophy">About</a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="index.html#contact">Contact</a>
+    </div>
+    <a class="md:hidden text-primary font-label-md text-label-sm uppercase tracking-[0.18em]" href="index.html">Home</a>
+  </nav>
+</header>
+
+<main class="pt-20">
+
+  <!-- ============ HERO STRIP ============ -->
+  <section class="relative h-[42vh] min-h-[300px] max-h-[460px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <img alt="Careers at Bhram Realty" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80"/>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65"></div>
+    </div>
+    <div class="relative z-10 text-center px-margin-mobile max-w-3xl">
+      <p class="eyebrow text-primary-fixed-dim font-label-md text-label-md uppercase mb-5">Careers</p>
+      <h1 class="text-white font-display-lg-mobile md:text-display-lg drop-shadow-md">Build with us</h1>
+      <p class="text-white/85 font-body-lg text-body-lg mt-6 max-w-2xl mx-auto">Bhram Realty is built by architects, designers, craftspeople, and storytellers. Browse the open roles below.</p>
+    </div>
+  </section>
+
+  <!-- ============ INTRO ============ -->
+  <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pt-14">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+      <div>
+        <p class="eyebrow text-primary font-label-md text-label-md uppercase mb-3">Open positions</p>
+        <h2 class="font-headline-lg-mobile md:text-headline-lg text-on-surface">Current openings</h2>
+      </div>
+      <p class="text-secondary font-body-md">Showing 4 open roles</p>
+    </div>
+  </section>
+
+  <!-- ============ JOBS GRID ============ -->
+  <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pb-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+
+      <article class="block bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Sales</span>
+          <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Full-time</span>
+        </div>
+        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-2">Senior Sales Associate</h3>
+        <p class="text-secondary font-body-md text-sm flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">place</span>Mumbai</span>
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">workspace_premium</span>5-8 years</span>
+        </p>
+        <p class="text-secondary font-body-md text-sm leading-relaxed mb-5">Cultivate relationships with HNI clients across our Mumbai portfolio. Strong network in luxury real estate required.</p>
+        <a href="mailto:careers@bhramrealty.com?subject=Application%3A%20Senior%20Sales%20Associate%20(Mumbai)" class="text-primary text-label-md uppercase tracking-[0.18em] inline-flex items-center gap-2 hover:gap-3 transition-all">Apply<span class="material-symbols-outlined text-base">arrow_forward</span></a>
+      </article>
+
+      <article class="block bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Architecture</span>
+          <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Full-time</span>
+        </div>
+        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-2">Senior Architect</h3>
+        <p class="text-secondary font-body-md text-sm flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">place</span>Bangalore</span>
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">workspace_premium</span>7-10 years</span>
+        </p>
+        <p class="text-secondary font-body-md text-sm leading-relaxed mb-5">Lead design across two upcoming developments in Whitefield and Indiranagar. Portfolio of completed residential work required.</p>
+        <a href="mailto:careers@bhramrealty.com?subject=Application%3A%20Senior%20Architect%20(Bangalore)" class="text-primary text-label-md uppercase tracking-[0.18em] inline-flex items-center gap-2 hover:gap-3 transition-all">Apply<span class="material-symbols-outlined text-base">arrow_forward</span></a>
+      </article>
+
+      <article class="block bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Design</span>
+          <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Full-time</span>
+        </div>
+        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-2">Interior Designer</h3>
+        <p class="text-secondary font-body-md text-sm flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">place</span>Mumbai</span>
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">workspace_premium</span>3-5 years</span>
+        </p>
+        <p class="text-secondary font-body-md text-sm leading-relaxed mb-5">Shape model apartments and bespoke client interiors. Sensibility for materiality and craft essential.</p>
+        <a href="mailto:careers@bhramrealty.com?subject=Application%3A%20Interior%20Designer%20(Mumbai)" class="text-primary text-label-md uppercase tracking-[0.18em] inline-flex items-center gap-2 hover:gap-3 transition-all">Apply<span class="material-symbols-outlined text-base">arrow_forward</span></a>
+      </article>
+
+      <article class="block bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="px-3 py-1 bg-primary/10 text-primary text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Marketing</span>
+          <span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[10px] font-semibold uppercase tracking-[0.18em] rounded-full">Full-time</span>
+        </div>
+        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-2">Brand &amp; Content Manager</h3>
+        <p class="text-secondary font-body-md text-sm flex flex-wrap items-center gap-x-4 gap-y-1 mb-4">
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">place</span>Nagpur (HQ)</span>
+          <span class="inline-flex items-center gap-1.5"><span class="material-symbols-outlined text-sm">workspace_premium</span>4-7 years</span>
+        </p>
+        <p class="text-secondary font-body-md text-sm leading-relaxed mb-5">Steward the Bhram voice across digital, print, and broker channels. Strong editorial background expected.</p>
+        <a href="mailto:careers@bhramrealty.com?subject=Application%3A%20Brand%20%26%20Content%20Manager%20(Nagpur)" class="text-primary text-label-md uppercase tracking-[0.18em] inline-flex items-center gap-2 hover:gap-3 transition-all">Apply<span class="material-symbols-outlined text-base">arrow_forward</span></a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ GENERAL APPLICATION STRIP ============ -->
+  <section class="bg-surface-container-lowest py-20 px-margin-mobile md:px-margin-desktop">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="eyebrow text-primary font-label-md text-label-md uppercase mb-5">Don't see the right role?</p>
+      <h2 class="font-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Introduce yourself</h2>
+      <p class="font-body-md text-secondary mb-10 leading-relaxed">We hire opportunistically when we meet exceptional people. Send your CV with a short note about your work.</p>
+      <a href="mailto:careers@bhramrealty.com?subject=General%20Application%20%E2%80%94%20Bhram%20Realty" class="inline-flex items-center justify-center px-12 py-4 bg-primary text-white font-label-md text-label-md uppercase tracking-[0.2em] rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all duration-500 signature-shadow">Email careers@bhramrealty.com</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="w-full pt-20 pb-10 bg-surface-container-lowest border-t border-surface-container">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <div>
+      <span class="font-headline-md text-headline-md text-on-surface uppercase font-bold block mb-6">BHRAM REALTY</span>
+      <p class="text-secondary font-body-md leading-relaxed">Setting the global standard for luxury real estate services in India for over three decades.</p>
+    </div>
+    <div>
+      <h4 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-6">Explore</h4>
+      <ul class="space-y-4 text-secondary font-body-md">
+        <li><a href="projects.html" class="hover:text-primary transition-colors">Portfolio</a></li>
+        <li><a href="media.html" class="hover:text-primary transition-colors">Media</a></li>
+        <li><a href="careers.html" class="hover:text-primary transition-colors">Careers</a></li>
+        <li><a href="index.html#philosophy" class="hover:text-primary transition-colors">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-6">Offices</h4>
+      <ul class="space-y-4 text-secondary font-body-md">
+        <li>Karve Nagar, Wardha Road, Nagpur, 440025</li>
+        <li>Worli Sea Face, Mumbai</li>
+        <li>Prithviraj Road, New Delhi</li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-label-md text-label-md text-on-surface uppercase tracking-widest mb-6">Legal</h4>
+      <ul class="space-y-4 text-secondary font-body-md">
+        <li class="hover:text-primary transition-colors cursor-pointer">Privacy Policy</li>
+        <li class="hover:text-primary transition-colors cursor-pointer">RERA Compliance</li>
+      </ul>
+    </div>
+  </div>
+  <div class="mt-20 border-t border-surface-container pt-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center">
+    <p class="text-secondary font-body-md">&copy; 2024 Bhram Realty. All Rights Reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

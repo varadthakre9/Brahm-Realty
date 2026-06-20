@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Bhram Realty — Content Manager</title>
+    <link rel="icon" href="data:," />
+</head>
+<body>
+    <!-- Netlify Identity widget — provides email + password login -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Decap CMS — the actual admin UI -->
+    <script src="https://unpkg.com/decap-cms@^3.4.0/dist/decap-cms.js"></script>
+
+    <script>
+        // After a successful login, return the user to /admin/ so the CMS can
+        // detect the session.
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", function (user) {
+                if (!user) {
+                    window.netlifyIdentity.on("login", function () {
+                        document.location.href = "/admin/";
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>

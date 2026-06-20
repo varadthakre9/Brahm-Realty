@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Portfolio | Bhram Realty</title>
+<meta name="description" content="Discover Nagpur's most prestigious addresses — a curated selection of high-end residential, commercial, and land developments by Bhram Realty."/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="js/tailwind-config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden antialiased">
+
+<!-- ============ HEADER ============ -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50">
+<div class="site-header__hairline" aria-hidden="true"></div>
+<div class="site-header__inner flex items-center justify-between gap-4 md:gap-8 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-3 min-w-0">
+<button id="mobile-menu-button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" class="header-icon-btn md:hidden -ml-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<a href="index.html" class="brand" aria-label="Bhram Realty — Home">
+<span class="brand__mark" aria-hidden="true">Br</span>
+<span class="brand__wordmark">Bhram Realty</span>
+</a>
+</div>
+<nav class="hidden md:flex items-center gap-9 lg:gap-11" aria-label="Primary">
+<a class="site-nav-link" href="projects.html" data-nav="projects">Portfolio</a>
+<a class="site-nav-link" href="media.html" data-nav="media">Insights</a>
+<a class="site-nav-link" href="index.html#contact" data-nav="concierge">Concierge</a>
+<a class="site-nav-link" href="index.html#philosophy" data-nav="about">About</a>
+</nav>
+<div class="flex items-center gap-1.5 md:gap-2">
+<button type="button" class="header-icon-btn" aria-label="Search">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+<a href="index.html#contact" class="header-cta hidden md:inline-flex">
+<span>Inquire Now</span>
+<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+</a>
+</div>
+</div>
+</header>
+
+<!-- ============ MOBILE NAVIGATION DRAWER ============ -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] pointer-events-none md:hidden" aria-hidden="true">
+<div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" data-menu-backdrop></div>
+<aside class="absolute top-0 right-0 h-full w-[88%] max-w-sm bg-surface shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col" data-menu-panel role="dialog" aria-modal="true" aria-label="Site navigation">
+<div class="flex items-center justify-between h-16 px-5 border-b border-surface-container-high shrink-0">
+<a href="index.html" class="brand" aria-label="Bhram Realty — Home" data-menu-link>
+<span class="brand__mark" aria-hidden="true">Br</span>
+<span class="brand__wordmark">Bhram Realty</span>
+</a>
+<button id="mobile-menu-close" aria-label="Close menu" class="header-icon-btn -mr-2">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-3" aria-label="Mobile primary">
+<a class="drawer-link" href="projects.html" data-menu-link>
+<span class="drawer-link__num">01</span>
+<span class="drawer-link__label">Portfolio</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="media.html" data-menu-link>
+<span class="drawer-link__num">02</span>
+<span class="drawer-link__label">Insights</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="index.html#contact" data-menu-link>
+<span class="drawer-link__num">03</span>
+<span class="drawer-link__label">Concierge</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="index.html#philosophy" data-menu-link>
+<span class="drawer-link__num">04</span>
+<span class="drawer-link__label">About</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="index.html#contact" data-menu-link>
+<span class="drawer-link__num">05</span>
+<span class="drawer-link__label">Contact</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+</nav>
+<div class="px-6 pt-6 pb-7 border-t border-surface-container-high shrink-0 space-y-4">
+<p class="eyebrow text-primary">Concierge</p>
+<a href="tel:+919900000000" class="drawer-contact">
+<span class="material-symbols-outlined" aria-hidden="true">call</span>
+<span>+91 99 000 00000</span>
+</a>
+<a href="mailto:concierge@bhramrealty.com" class="drawer-contact">
+<span class="material-symbols-outlined" aria-hidden="true">mail</span>
+<span>concierge@bhramrealty.com</span>
+</a>
+<a href="index.html#contact" class="block text-center mt-2 px-6 py-3.5 bg-on-surface text-white rounded-full font-label-md text-label-md uppercase tracking-widest hover:bg-primary transition-colors" data-menu-link>Inquire</a>
+</div>
+</aside>
+</div>
+
+<main class="pt-[80px] md:pt-[88px]">
+
+<!-- ============ PORTFOLIO TITLE ============ -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pt-6 md:pt-10 pb-4 md:pb-6 text-center">
+<p class="eyebrow text-primary mb-3">The Portfolio</p>
+<h1 class="text-[30px] md:text-[44px] text-on-surface leading-[1.08] max-w-3xl mx-auto">
+Nagpur&rsquo;s most prestigious addresses
+</h1>
+<p class="signature-font text-primary/80 text-lg md:text-xl mt-2 md:mt-3">Six addresses. One standard.</p>
+</section>
+
+<!-- ============ FILTER BAR ============ -->
+<section class="filter-bar sticky top-[64px] md:top-[76px] z-30">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-4 md:py-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+
+<!-- Category chips (scrollable on mobile) -->
+<div class="flex gap-2 overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile md:mx-0 md:px-0">
+<button type="button" class="filter-chip is-active" data-category="all">All</button>
+<button type="button" class="filter-chip" data-category="residential">Residential</button>
+<button type="button" class="filter-chip" data-category="flats">Flats</button>
+<button type="button" class="filter-chip" data-category="plots">Plots</button>
+<button type="button" class="filter-chip" data-category="commercial">Commercial</button>
+</div>
+
+<!-- Location + Price dropdowns -->
+<div class="flex gap-2.5 shrink-0">
+<select class="filter-select" data-filter="location" aria-label="Filter by location">
+<option value="">All Locations</option>
+<option value="nagpur">All of Nagpur</option>
+<option value="wardha-road">Wardha Road</option>
+<option value="besa">Besa</option>
+<option value="dharampeth">Dharampeth</option>
+</select>
+<select class="filter-select" data-filter="price" aria-label="Filter by price range">
+<option value="">Any Price</option>
+<option value="0-50">Under &#8377;50 L</option>
+<option value="50-100">&#8377;50 L &ndash; &#8377;1 Cr</option>
+<option value="100-500">&#8377;1 Cr &ndash; &#8377;5 Cr</option>
+<option value="500+">Above &#8377;5 Cr</option>
+</select>
+</div>
+
+</div>
+</section>
+
+<!-- ============ PROJECTS GRID ============ -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pt-10 md:pt-12 pb-20 md:pb-24">
+
+<!-- Width-capped wrapper: keeps each card ~300px wide even at 3-up so cards
+     don't balloon on wide screens. -->
+<div class="max-w-[960px] mx-auto">
+
+<p class="text-secondary text-sm mb-6 md:mb-8 flex items-baseline gap-2">
+<span class="signature-font text-primary text-lg leading-none"><span id="projects-count">6</span></span>
+<span class="uppercase tracking-[0.18em] text-[11px] text-secondary">developments &middot; curated for Nagpur</span>
+</p>
+
+<div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+
+<!-- Card 1 — The Celestia Residences (Residential / Flats) -->
+<article class="project-card" data-category="residential flats" data-location="nagpur civil-lines" data-price="245">
+<div class="project-card__media">
+<img alt="The Celestia Residences — modern apartment exterior" loading="lazy" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="project-card__tag">Residential</span>
+</div>
+<div class="project-card__body">
+<p class="project-card__loc"><span class="material-symbols-outlined">location_on</span>Civil Lines, Nagpur</p>
+<h3 class="project-card__title">The Celestia Residences</h3>
+<div class="project-card__row">
+<div class="project-card__price-wrap">
+<p class="project-card__from">Priced from</p>
+<p class="project-card__price">&#8377; 2.45 Cr</p>
+</div>
+<p class="project-card__spec"><span class="material-symbols-outlined">bed</span>3/4 BHK</p>
+</div>
+<a href="project.html" class="project-card__btn">View Details</a>
+</div>
+</article>
+
+<!-- Card 2 — Veridian Park Plots (Premium Plots) -->
+<article class="project-card" data-category="plots" data-location="nagpur wardha-road" data-price="85">
+<div class="project-card__media">
+<img alt="Veridian Park Plots — premium plotted development" loading="lazy" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="project-card__tag">Plots</span>
+</div>
+<div class="project-card__body">
+<p class="project-card__loc"><span class="material-symbols-outlined">location_on</span>Wardha Road, Nagpur</p>
+<h3 class="project-card__title">Veridian Park Plots</h3>
+<div class="project-card__row">
+<div class="project-card__price-wrap">
+<p class="project-card__from">Priced from</p>
+<p class="project-card__price">&#8377; 85 L</p>
+</div>
+<p class="project-card__spec"><span class="material-symbols-outlined">straighten</span>1200 &ndash; 3500 Sqft</p>
+</div>
+<a href="project.html" class="project-card__btn">View Details</a>
+</div>
+</article>
+
+<!-- Card 3 — The Meridian Hub (Commercial) -->
+<article class="project-card" data-category="commercial" data-location="nagpur besa" data-price="115">
+<div class="project-card__media">
+<img alt="The Meridian Hub — commercial office and retail complex" loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="project-card__tag">Commercial</span>
+</div>
+<div class="project-card__body">
+<p class="project-card__loc"><span class="material-symbols-outlined">location_on</span>Besa, Nagpur</p>
+<h3 class="project-card__title">The Meridian Hub</h3>
+<div class="project-card__row">
+<div class="project-card__price-wrap">
+<p class="project-card__from">Priced from</p>
+<p class="project-card__price">&#8377; 1.15 Cr</p>
+</div>
+<p class="project-card__spec"><span class="material-symbols-outlined">apartment</span>Office &amp; Retail</p>
+</div>
+<a href="project.html" class="project-card__btn">View Details</a>
+</div>
+</article>
+
+<!-- Card 4 — Aura Signature Villas (Residential / Villas) -->
+<article class="project-card" data-category="residential" data-location="nagpur dharampeth" data-price="420">
+<div class="project-card__media">
+<img alt="Aura Signature Villas — luxury villas with private pools" loading="lazy" src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="project-card__tag">Residential</span>
+</div>
+<div class="project-card__body">
+<p class="project-card__loc"><span class="material-symbols-outlined">location_on</span>Dharampeth, Nagpur</p>
+<h3 class="project-card__title">Aura Signature Villas</h3>
+<div class="project-card__row">
+<div class="project-card__price-wrap">
+<p class="project-card__from">Priced from</p>
+<p class="project-card__price">&#8377; 4.20 Cr</p>
+</div>
+<p class="project-card__spec"><span class="material-symbols-outlined">villa</span>5 BHK Private Pool</p>
+</div>
+<a href="project.html" class="project-card__btn">View Details</a>
+</div>
+</article>
+
+<!-- Card 5 — Orchard Springs (Plots / Farmhouse) -->
+<article class="project-card" data-category="plots" data-location="nagpur hingna" data-price="45">
+<div class="project-card__media">
+<img alt="Orchard Springs — farmhouse plots in lush countryside" loading="lazy" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="project-card__tag">Plots</span>
+</div>
+<div class="project-card__body">
+<p class="project-card__loc"><span class="material-symbols-outlined">location_on</span>Hingna Road, Nagpur</p>
+<h3 class="project-card__title">Orchard Springs</h3>
+<div class="project-card__row">
+<div class="project-card__price-wrap">
+<p class="project-card__from">Priced from</p>
+<p class="project-card__price">&#8377; 45 L</p>
+</div>
+<p class="project-card__spec"><span class="material-symbols-outlined">nature</span>Farmhouse Plots</p>
+</div>
+<a href="project.html" class="project-card__btn">View Details</a>
+</div>
+</article>
+
+<!-- Card 6 — The Zenith Towers (Residential / Flats / Penthouses) -->
+<article class="project-card" data-category="residential flats" data-location="nagpur ramdaspeth" data-price="310">
+<div class="project-card__media">
+<img alt="The Zenith Towers — high-rise residential penthouses" loading="lazy" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"/>
+<span class="project-card__tag">Residential</span>
+</div>
+<div class="project-card__body">
+<p class="project-card__loc"><span class="material-symbols-outlined">location_on</span>Ramdaspeth, Nagpur</p>
+<h3 class="project-card__title">The Zenith Towers</h3>
+<div class="project-card__row">
+<div class="project-card__price-wrap">
+<p class="project-card__from">Priced from</p>
+<p class="project-card__price">&#8377; 3.10 Cr</p>
+</div>
+<p class="project-card__spec"><span class="material-symbols-outlined">apartment</span>4 BHK Penthouses</p>
+</div>
+<a href="project.html" class="project-card__btn">View Details</a>
+</div>
+</article>
+
+</div>
+
+<!-- Empty state when filters return nothing -->
+<p id="projects-empty" class="hidden text-center text-secondary py-20">No projects match the current filters. Try clearing one.</p>
+
+</div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER (dark, editorial) ============ -->
+<footer class="site-footer-dark">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-10">
+
+<!-- Brand + tagline -->
+<div>
+<a href="index.html" class="brand brand--dark" aria-label="Bhram Realty &mdash; Home">
+<span class="brand__mark" aria-hidden="true">Br</span>
+<span class="brand__wordmark">Bhram Realty</span>
+</a>
+<p class="text-white/65 text-sm mt-6 leading-relaxed max-w-xs">Nagpur&rsquo;s leading authority in luxury real estate &mdash; three decades of curating the city&rsquo;s most prestigious addresses.</p>
+</div>
+
+<!-- Quick Links -->
+<div>
+<h4 class="site-footer-dark__h">Quick Links</h4>
+<ul class="site-footer-dark__list">
+<li><a href="projects.html">Residential Portfolio</a></li>
+<li><a href="media.html">Investment Insights</a></li>
+<li><a href="index.html#philosophy">Our Story</a></li>
+<li><a href="index.html#contact">Concierge Services</a></li>
+</ul>
+</div>
+
+<!-- Resources -->
+<div>
+<h4 class="site-footer-dark__h">Resources</h4>
+<ul class="site-footer-dark__list">
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms of Service</a></li>
+<li><a href="#">RERA Compliance</a></li>
+<li><a href="#">Cookie Settings</a></li>
+</ul>
+</div>
+
+<!-- Newsletter -->
+<div>
+<h4 class="site-footer-dark__h">Newsletter</h4>
+<p class="text-white/65 text-sm leading-relaxed mb-5">Be the first to know when a new address joins the portfolio.</p>
+<form class="newsletter-form" onsubmit="event.preventDefault();">
+<input class="newsletter-input" type="email" placeholder="Your email address" aria-label="Email address" required/>
+<button type="submit" class="newsletter-btn" aria-label="Subscribe to newsletter">
+<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+</button>
+</form>
+</div>
+
+</div>
+
+<div class="site-footer-dark__bottom">
+<p class="site-footer-dark__copy">&copy; 2026 Bhram Realty &middot; Exclusive luxury portfolio</p>
+<div class="flex items-center gap-2">
+<a href="#" class="site-footer-dark__icon" aria-label="Share"><span class="material-symbols-outlined" aria-hidden="true">share</span></a>
+<a href="#" class="site-footer-dark__icon" aria-label="Language"><span class="material-symbols-outlined" aria-hidden="true">language</span></a>
+<a href="tel:+919900000000" class="site-footer-dark__icon" aria-label="Call"><span class="material-symbols-outlined" aria-hidden="true">call</span></a>
+</div>
+</div>
+
+</div>
+</footer>
+
+<!-- ============ Floating Inquire pill ============ -->
+<a href="index.html#contact" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 inline-flex items-center gap-2.5 pl-4 pr-5 py-3 rounded-full bg-on-surface text-white shadow-[0_18px_38px_-14px_rgba(0,0,0,0.45)] hover:bg-primary transition-colors duration-300 float-cta">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">chat_bubble</span>
+<span class="signature-font text-[17px] leading-none">Inquire</span>
+</a>
+
+<script src="js/main.js"></script>
+<script src="js/portfolio.js"></script>
+</body>
+</html>
