@@ -1,31 +1,178 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
-    <title>Bhram Realty — Content Manager</title>
-    <link rel="icon" href="data:," />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Bhram Realty — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="admin.css" rel="stylesheet"/>
 </head>
 <body>
-    <!-- Netlify Identity widget — provides email + password login -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <!-- Decap CMS — the actual admin UI -->
-    <script src="https://unpkg.com/decap-cms@^3.4.0/dist/decap-cms.js"></script>
+<!-- ───────── LOGIN ───────── -->
+<div id="login-view" class="login-wrap">
+  <form id="login-form" class="login-card">
+    <div class="brand">Bhram Realty</div>
+    <p class="sub">Admin Panel</p>
+    <div class="field">
+      <label for="lg-user">Username</label>
+      <input type="text" id="lg-user" autocomplete="username" required/>
+    </div>
+    <div class="field">
+      <label for="lg-pass">Password</label>
+      <input type="text" id="lg-pass" style="-webkit-text-security:disc" autocomplete="current-password" required/>
+    </div>
+    <p id="lg-error" class="hidden" style="color:var(--danger);font-size:13px;margin:0 0 12px"></p>
+    <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center">Sign In</button>
+  </form>
+</div>
 
-    <script>
-        // After a successful login, return the user to /admin/ so the CMS can
-        // detect the session.
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", function (user) {
-                if (!user) {
-                    window.netlifyIdentity.on("login", function () {
-                        document.location.href = "/admin/";
-                    });
-                }
-            });
-        }
-    </script>
+<!-- ───────── APP ───────── -->
+<div id="app-view" class="hidden">
+  <div class="topbar">
+    <div class="in">
+      <div class="brand serif">Bhram Realty <span style="font-family:Inter;font-size:12px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase">Admin</span></div>
+      <div class="right">
+        <a class="btn btn-ghost btn-sm" href="/" target="_blank"><span class="mi">open_in_new</span> View site</a>
+        <button id="logout-btn" class="btn btn-ghost btn-sm"><span class="mi">logout</span> Log out</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- LIST -->
+    <div class="panel">
+      <div class="phead">
+        <h2>Projects <span id="count" style="color:var(--muted);font-weight:500"></span></h2>
+        <button id="new-btn" class="btn btn-gold btn-sm"><span class="mi">add</span> New</button>
+      </div>
+      <div class="pbody">
+        <div id="proj-list" class="proj-list"><p class="empty">Loading…</p></div>
+      </div>
+    </div>
+
+    <!-- EDITOR -->
+    <div class="panel">
+      <div class="phead">
+        <h2 id="form-title">Add a project</h2>
+        <span id="editing-id" style="font-size:12px;color:var(--muted)"></span>
+      </div>
+      <div class="pbody">
+        <form id="project-form">
+          <input type="hidden" id="f-id"/>
+
+          <div class="field">
+            <label for="f-name">Project name <span class="req">*</span></label>
+            <input type="text" id="f-name" required placeholder="e.g. The Celestia Residences"/>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="f-location">Location</label>
+              <input type="text" id="f-location" placeholder="Civil Lines, Nagpur"/>
+            </div>
+            <div class="field">
+              <label for="f-rera_number">RERA number</label>
+              <input type="text" id="f-rera_number" placeholder="P50500012345"/>
+            </div>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="f-starting_price">Starting price</label>
+              <input type="text" id="f-starting_price" placeholder="₹ 2.45 Cr"/>
+            </div>
+            <div class="field">
+              <label for="f-configurations">Configurations</label>
+              <input type="text" id="f-configurations" placeholder="3 & 4 BHK"/>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="f-category">Category</label>
+            <input type="text" id="f-category" list="category-options" placeholder="residential, flats, plots or commercial"/>
+            <datalist id="category-options">
+              <option value="residential"></option>
+              <option value="residential flats"></option>
+              <option value="plots"></option>
+              <option value="commercial"></option>
+            </datalist>
+            <p class="hint">Drives the Portfolio page filters. Use one or more of: residential, flats, plots, commercial (e.g. "residential flats").</p>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label for="f-carpet_area">Carpet area</label>
+              <input type="text" id="f-carpet_area" placeholder="1450 – 2600 sq.ft."/>
+            </div>
+            <div class="field">
+              <label for="f-possession_date">Possession date</label>
+              <input type="text" id="f-possession_date" placeholder="December 2027"/>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="check">
+              <input type="checkbox" id="f-on_homepage"/>
+              <span>Show this project on the homepage (Featured)</span>
+            </label>
+          </div>
+
+          <div class="field">
+            <label for="f-about">About the project</label>
+            <textarea id="f-about" rows="5" placeholder="Describe the development, amenities, developer, etc."></textarea>
+          </div>
+
+          <!-- HIGHLIGHTS -->
+          <div class="section-label">Highlights</div>
+          <div id="highlights"></div>
+          <button type="button" id="add-hl" class="btn btn-ghost btn-sm"><span class="mi">add</span> Add highlight</button>
+
+          <!-- LOCATION SECTION -->
+          <div class="section-label">Location section</div>
+          <div class="field">
+            <label for="f-location_title">Title</label>
+            <input type="text" id="f-location_title" placeholder="A coveted central address"/>
+          </div>
+          <div class="field">
+            <label for="f-location_description">Description</label>
+            <textarea id="f-location_description" rows="3" placeholder="What's nearby — schools, highways, business districts…"></textarea>
+          </div>
+          <div class="field">
+            <label for="f-map_embed">Google Maps embed (optional)</label>
+            <textarea id="f-map_embed" rows="2" placeholder="Paste the Google Maps &lt;iframe&gt; code or the embed URL"></textarea>
+            <p class="hint">In Google Maps: Share → Embed a map → copy the HTML or the src link. Paste it here.</p>
+          </div>
+
+          <!-- GALLERY -->
+          <div class="section-label">Gallery images</div>
+          <div id="gallery-area">
+            <div id="uploader" class="uploader dim">
+              <span class="mi" style="font-size:30px">image</span>
+              <p style="margin:6px 0 0">Save the project first, then upload images here.</p>
+            </div>
+            <input type="file" id="file-input" accept="image/*" multiple class="hidden"/>
+            <div id="gallery" class="gal"></div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" id="save-btn" class="btn btn-gold"><span class="mi">save</span> <span id="save-label">Save project</span></button>
+            <button type="button" id="cancel-btn" class="btn btn-ghost hidden">Cancel</button>
+            <span class="spacer"></span>
+            <button type="button" id="delete-btn" class="btn btn-danger hidden"><span class="mi">delete</span> Delete</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="admin.js"></script>
 </body>
 </html>

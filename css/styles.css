@@ -480,22 +480,12 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     border-bottom: 1px solid rgba(208, 197, 181, 0.55);
 }
 
-/* ---- Project card ---- */
-.project-card {
-    position: relative;
-    background: #fff;
-    border-radius: 18px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 24px 50px -28px rgba(40, 35, 18, 0.22);
-    transition: transform 0.5s cubic-bezier(.2, .7, .2, 1), box-shadow 0.5s ease;
-}
-.project-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 40px 70px -32px rgba(40, 35, 18, 0.32);
-}
-.project-card.is-hidden { display: none; }
+/* ---- Project card ----
+   The portfolio cards now use the same Tailwind utility markup as the homepage
+   "Featured Estates" cards (see js/portfolio-data.js), so the two pages share an
+   identical card design. These rules only provide the filter show/hide hook used
+   by js/portfolio.js. The legacy .project-card__* rules below are unused. */
+.project-card.is-hidden { display: none !important; }
 
 .project-card__media {
     position: relative;
@@ -591,16 +581,64 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
 }
 
 .project-card__price {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 26px;
-    font-weight: 600;
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-size: 23px;
+    font-weight: 700;
     color: #735c00;
     line-height: 1;
-    letter-spacing: -0.012em;
-    font-variant-numeric: lining-nums;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
 }
 @media (min-width: 768px) {
-    .project-card__price { font-size: 28px; }
+    .project-card__price { font-size: 25px; }
+}
+
+/* ============================================================================
+   Price typography — shared across cards and the project detail page.
+   Use .price on the container and the priceHTML() helper (in the page JS)
+   to wrap the currency symbol and unit so "₹ 85 L" reads cleanly with
+   tabular figures and a tastefully sized symbol.
+   ============================================================================ */
+.price {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #735c00;
+    white-space: nowrap;
+}
+.price__cur {
+    font-weight: 500;
+    font-size: 0.62em;
+    margin-right: 0.16em;
+    opacity: 0.75;
+    vertical-align: 0.08em;
+}
+.price__unit {
+    font-weight: 600;
+    font-size: 0.58em;
+    letter-spacing: 0.09em;
+    margin-left: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+.price__from {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 0.55em;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5f5e5a;
+    margin-right: 0.5em;
+    vertical-align: 0.12em;
+}
+.price--muted {
+    color: #5f5e5a;
+    font-weight: 500;
+    letter-spacing: 0;
 }
 
 .project-card__spec {

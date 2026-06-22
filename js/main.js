@@ -108,45 +108,53 @@
 // On mobile the grid container becomes a horizontal scroll-snap carousel.
 // We mirror the active card with a row of dots so the user can see how many
 // cards remain. Dots are tap-targets that scroll the corresponding card into
-// view. On md+ the dots are hidden via Tailwind's `md:hidden`, and this
-// observer's class toggles are visually irrelevant there.
+// view. On md+ the dots are hidden via Tailwind's `md:hidden`.
 // ----------------------------------------------------------------------------
-(function () {
-    const carousel = document.getElementById('featured-grid');
-    const dotsWrap = document.getElementById('featured-dots');
-    if (!carousel || !dotsWrap) return;
+// Exposed as window.BhramFeatured.initDots() so it can be re-run after extra
+// cards are added dynamically (see js/featured-admin.js).
+window.BhramFeatured = (function () {
+    let observer = null;
 
-    const cards = Array.from(carousel.querySelectorAll(':scope > article'));
-    if (!cards.length) return;
+    function initDots() {
+        const carousel = document.getElementById('featured-grid');
+        const dotsWrap = document.getElementById('featured-dots');
+        if (!carousel || !dotsWrap) return;
 
-    dotsWrap.innerHTML = '';
-    const dots = cards.map((card, index) => {
-        const dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'featured-dot' + (index === 0 ? ' is-active' : '');
-        dot.setAttribute('aria-label', `Go to estate ${index + 1}`);
-        dot.addEventListener('click', () => {
-            card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-        });
-        dotsWrap.appendChild(dot);
-        return dot;
-    });
+        const cards = Array.from(carousel.querySelectorAll(':scope > article'));
+        if (observer) { observer.disconnect(); observer = null; }
+        dotsWrap.innerHTML = '';
+        if (!cards.length) return;
 
-    if (!('IntersectionObserver' in window)) return;
-
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
-                    const index = cards.indexOf(entry.target);
-                    if (index === -1) return;
-                    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
-                }
+        const dots = cards.map((card, index) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'featured-dot' + (index === 0 ? ' is-active' : '');
+            dot.setAttribute('aria-label', `Go to estate ${index + 1}`);
+            dot.addEventListener('click', () => {
+                card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
             });
-        },
-        { root: carousel, threshold: [0.6, 0.9] }
-    );
-    cards.forEach((card) => observer.observe(card));
+            dotsWrap.appendChild(dot);
+            return dot;
+        });
+
+        if (!('IntersectionObserver' in window)) return;
+        observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
+                        const index = cards.indexOf(entry.target);
+                        if (index === -1) return;
+                        dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+                    }
+                });
+            },
+            { root: carousel, threshold: [0.6, 0.9] }
+        );
+        cards.forEach((card) => observer.observe(card));
+    }
+
+    initDots();
+    return { initDots };
 })();
 
 // ----------------------------------------------------------------------------

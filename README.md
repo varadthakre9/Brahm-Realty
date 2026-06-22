@@ -1,46 +1,72 @@
-# Bhram Realty Website
+# Bhram Realty
 
-A static luxury real estate website for Bhram Realty. Built with HTML, Tailwind CSS (via CDN), and a small amount of vanilla JavaScript for carousels and animations.
+A luxury real estate website **plus** an admin panel and database — all in one
+folder, run by one small Node server.
 
-## Pages
+- **Website** — the Bhram Realty pages (home, portfolio, detail pages).
+- **Admin panel** — add/edit projects, upload images, pick which appear on the
+  homepage. No coding needed.
+- **Database** — projects you add are stored in SQLite and shown on the site
+  automatically.
 
-| Path | What it is |
+## Running it
+
+You need [Node.js](https://nodejs.org) installed. Then, from this folder:
+
+```bash
+npm install      # first time only (already done if node_modules exists)
+npm start
+```
+
+Then open:
+
+| URL | What it is |
 |---|---|
-| `/` (`index.html`) | Homepage - hero, philosophy, featured estates carousel, interior mastery, testimonials, contact form |
-| `/projects` (`projects.html`) | Full portfolio grid of developments |
-| `/media` (`media.html`) | Press, brand films, photo gallery, awards, journal - in tabbed sections |
-| `/careers` (`careers.html`) | Open job positions |
+| `http://localhost:5500/` | The Bhram Realty website |
+| `http://localhost:5500/admin/` | The admin panel |
 
-## Project structure
+Log in to the admin with the username/password in `config.js`
+(default `admin` / `admin123` — change these before going live).
 
-```
-/
-├── index.html
-├── projects.html
-├── media.html
-├── careers.html
-├── css/
-│   └── styles.css            # Extracted homepage styles
-├── js/
-│   ├── main.js               # Homepage carousel + animations
-│   └── tailwind-config.js    # Shared Tailwind design tokens
-├── netlify.toml              # Netlify hosting config (static)
-├── README.md
-└── .gitignore
-```
+## How content flows
 
-## Local preview
+1. In the admin panel, click **New**, fill in the project details, save.
+2. Upload gallery images, add highlights, and tick **Show on homepage**.
+3. On the website, the **Featured Estates** section (home page) shows every
+   project marked for the homepage. Each card links to its detail page at
+   `/project/<id>`.
 
-Open `index.html` directly in a browser, or run a static server:
+The site reads fresh data on each page load — refresh the page after making
+admin changes.
 
-```powershell
-npx serve .
-```
+## The pages
 
-## Deploying
+| File | What it is |
+|---|---|
+| `index.html` | Home page — hero, **Featured Estates** (built-in cards + admin projects), about, contact |
+| `projects.html` | Portfolio — built-in property cards with filters |
+| `media.html` / `careers.html` | Press / job pages |
+| `project-*.html` | The 3 built-in detailed property pages |
+| `project.html` | Dynamic detail page for admin-managed projects (`/project/:id`) |
+| `admin/` | The admin panel (login, project editor, gallery, highlights) |
 
-Push the repo to GitHub and connect it to Netlify (or any static host) - no build step is required. Netlify will publish the site directly from the repo root.
+Folders: `css/` (styling), `js/` (scripts), `images/` (pictures),
+`uploads/` (admin-uploaded images), `data/` (the SQLite database).
 
-## Future plan
+## Server files
 
-The site is intentionally static for now. A future iteration can add a CMS layer to make projects, hero media, job openings, and the media page editable from a dashboard. The current page structure is designed to make that upgrade straightforward.
+`server.js` (the app), `db.js` (database), `config.js` (port + admin login),
+`package.json`. These are not served to the public.
+
+## Editing the built-in content
+
+The three original Featured Estates cards and the Portfolio cards are still
+plain HTML — edit them in `index.html` / `projects.html`. Admin projects appear
+**alongside** the built-in featured cards.
+
+## Putting it online
+
+This now needs a host that runs **Node.js** (e.g. Render, Railway, Fly.io, or a
+VPS) — a plain static host like Netlify Drop won't run the admin/database. Set
+the `PORT`, `ADMIN_USERNAME`, and `ADMIN_PASSWORD` environment variables on the
+host.

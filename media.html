@@ -7,6 +7,7 @@
 <meta name="description" content="Bhram Realty in the press: features, brand films, awards, and journal entries."/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
@@ -64,80 +65,152 @@
   .tab-btn::after { content: ''; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0; background: #735c00; transition: width .35s ease; }
   body { min-height: 100dvh; }
 </style>
+<link href="css/styles.css" rel="stylesheet"/>
 </head>
 <body class="bg-surface text-on-surface font-body-md overflow-x-hidden antialiased">
 
 <!-- ============ HEADER ============ -->
-<header id="site-header" class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-md">
-  <nav class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-    <a href="index.html" class="font-headline-md text-xl md:text-2xl tracking-[0.2em] text-on-surface uppercase font-semibold">BHRAM REALTY</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="projects.html">Portfolio</a>
-      <a class="text-primary font-semibold font-label-md text-label-md uppercase tracking-[0.18em]" href="media.html">Media</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="careers.html">Careers</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="index.html#philosophy">About</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="index.html#contact">Contact</a>
-    </div>
-    <a class="md:hidden text-primary font-label-md text-label-sm uppercase tracking-[0.18em]" href="index.html">Home</a>
-  </nav>
+<header id="site-header" class="fixed top-0 inset-x-0 z-50">
+<div class="site-header__hairline" aria-hidden="true"></div>
+<div class="site-header__inner flex items-center justify-between gap-4 md:gap-8 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-3 min-w-0">
+<button id="mobile-menu-button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" class="header-icon-btn md:hidden -ml-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<a href="index.html" class="brand" aria-label="Bhram Realty — Home">
+<span class="brand__mark" aria-hidden="true">Br</span>
+<span class="brand__wordmark">Bhram Realty</span>
+</a>
+</div>
+<nav class="hidden md:flex items-center gap-9 lg:gap-11" aria-label="Primary">
+<a class="site-nav-link" href="projects.html" data-nav="projects">Portfolio</a>
+<a class="site-nav-link" href="media.html" data-nav="media">Media</a>
+<a class="site-nav-link" href="careers.html" data-nav="careers">Careers</a>
+<a class="site-nav-link" href="index.html#philosophy" data-nav="about">About</a>
+</nav>
+<div class="flex items-center gap-1.5 md:gap-2">
+<button type="button" class="header-icon-btn" aria-label="Search">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+<a href="index.html#contact" class="header-cta hidden md:inline-flex">
+<span>Inquire</span>
+<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+</a>
+</div>
+</div>
 </header>
 
-<main class="pt-20">
+<!-- ============ MOBILE NAVIGATION DRAWER ============ -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] pointer-events-none md:hidden" aria-hidden="true">
+<div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" data-menu-backdrop></div>
+<aside class="absolute top-0 right-0 h-full w-[88%] max-w-sm bg-surface shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col" data-menu-panel role="dialog" aria-modal="true" aria-label="Site navigation">
+<div class="flex items-center justify-between h-16 px-5 border-b border-surface-container-high shrink-0">
+<a href="index.html" class="brand" aria-label="Bhram Realty — Home" data-menu-link>
+<span class="brand__mark" aria-hidden="true">Br</span>
+<span class="brand__wordmark">Bhram Realty</span>
+</a>
+<button id="mobile-menu-close" aria-label="Close menu" class="header-icon-btn -mr-2">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-3" aria-label="Mobile primary">
+<a class="drawer-link" href="projects.html" data-menu-link>
+<span class="drawer-link__num">01</span>
+<span class="drawer-link__label">Portfolio</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="media.html" data-menu-link>
+<span class="drawer-link__num">02</span>
+<span class="drawer-link__label">Media</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="careers.html" data-menu-link>
+<span class="drawer-link__num">03</span>
+<span class="drawer-link__label">Careers</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="index.html#philosophy" data-menu-link>
+<span class="drawer-link__num">04</span>
+<span class="drawer-link__label">About</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="index.html#contact" data-menu-link>
+<span class="drawer-link__num">05</span>
+<span class="drawer-link__label">Contact</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+</nav>
+<div class="px-6 pt-6 pb-7 border-t border-surface-container-high shrink-0 space-y-4">
+<p class="eyebrow text-primary">Concierge</p>
+<a href="tel:+919900000000" class="drawer-contact">
+<span class="material-symbols-outlined" aria-hidden="true">call</span>
+<span>+91 99 000 00000</span>
+</a>
+<a href="mailto:concierge@bhramrealty.com" class="drawer-contact">
+<span class="material-symbols-outlined" aria-hidden="true">mail</span>
+<span>concierge@bhramrealty.com</span>
+</a>
+<a href="index.html#contact" class="block text-center mt-2 px-6 py-3.5 bg-on-surface text-white rounded-full font-label-md text-label-md uppercase tracking-widest hover:bg-primary transition-colors" data-menu-link>Inquire</a>
+</div>
+</aside>
+</div>
 
-  <!-- ============ HERO STRIP ============ -->
-  <section class="relative h-[42vh] min-h-[300px] max-h-[460px] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img alt="Bhram Realty in the media" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=2000&q=80"/>
-      <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65"></div>
-    </div>
-    <div class="relative z-10 text-center px-margin-mobile max-w-3xl">
-      <p class="eyebrow text-primary-fixed-dim font-label-md text-label-md uppercase mb-5">Bhram in the Media</p>
-      <h1 class="text-white font-display-lg-mobile md:text-display-lg drop-shadow-md">In the Public Eye</h1>
-      <p class="text-white/85 font-body-lg text-body-lg mt-6 max-w-2xl mx-auto">Press features, brand films, awards, and writing from the team.</p>
-    </div>
-  </section>
+<main class="pt-20">
 
   <!-- ============ SECTION TABS ============ -->
   <div class="sticky top-20 z-40 bg-surface/95 backdrop-blur-md border-b border-surface-container-high">
     <nav class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop flex items-center gap-8 md:gap-12 overflow-x-auto hide-scrollbar" aria-label="Media sections">
-      <a href="#press" class="tab-btn relative inline-flex items-center gap-2 py-5 text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.18em] whitespace-nowrap hover:text-primary transition-colors">Press</a>
+      <a href="#testimonials" class="tab-btn relative inline-flex items-center gap-2 py-5 text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.18em] whitespace-nowrap hover:text-primary transition-colors">Video Testimonials</a>
       <a href="#videos" class="tab-btn relative inline-flex items-center gap-2 py-5 text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.18em] whitespace-nowrap hover:text-primary transition-colors">Videos</a>
       <a href="#gallery" class="tab-btn relative inline-flex items-center gap-2 py-5 text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.18em] whitespace-nowrap hover:text-primary transition-colors">Gallery</a>
-      <a href="#awards" class="tab-btn relative inline-flex items-center gap-2 py-5 text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.18em] whitespace-nowrap hover:text-primary transition-colors">Awards</a>
-      <a href="#journal" class="tab-btn relative inline-flex items-center gap-2 py-5 text-on-surface-variant font-label-md text-label-md uppercase tracking-[0.18em] whitespace-nowrap hover:text-primary transition-colors">Journal</a>
     </nav>
   </div>
 
-  <!-- ============ PRESS ============ -->
-  <section id="press" class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-20">
+  <!-- ============ VIDEO TESTIMONIALS ============ -->
+  <section id="testimonials" class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-20">
     <div class="mb-12">
-      <p class="eyebrow text-primary font-label-md text-label-md uppercase mb-3">As featured in</p>
-      <h2 class="font-headline-lg-mobile md:text-headline-lg text-on-surface">Press &amp; Editorial</h2>
+      <p class="eyebrow text-primary font-label-md text-label-md uppercase mb-3">In their words</p>
+      <h2 class="font-headline-lg-mobile md:text-headline-lg text-on-surface">Video Testimonials</h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-      <article class="bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
-        <p class="text-primary-container font-label-md text-label-md uppercase tracking-[0.18em] mb-3">Architectural Digest India</p>
-        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-3">Inside Bhram Realty's coastal sanctuary</h3>
-        <p class="text-secondary font-body-md text-sm italic mb-4">&ldquo;A masterclass in how restraint, when applied to scale, becomes its own form of grandeur.&rdquo;</p>
-        <p class="text-xs text-secondary uppercase tracking-[0.18em]">March 2024</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <article class="group flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden signature-shadow card-hover cursor-pointer">
+        <div class="relative aspect-[4/3] overflow-hidden bg-on-surface">
+          <img alt="Homeowner testimonial — The Sky Penthouse" loading="lazy" class="w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80"/>
+          <span class="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors"></span>
+          <span class="absolute inset-0 flex items-center justify-center">
+            <span class="material-symbols-outlined text-white text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+          </span>
+        </div>
+        <div class="flex flex-col gap-2.5 p-6">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-primary font-semibold">Homeowner &middot; The Sky Penthouse</p>
+          <h3 class="font-headline-md text-xl leading-snug text-on-surface">&ldquo;They understood our vision completely&rdquo;</h3>
+        </div>
       </article>
-      <article class="bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
-        <p class="text-primary-container font-label-md text-label-md uppercase tracking-[0.18em] mb-3">Forbes India</p>
-        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-3">The quiet titans of Indian luxury real estate</h3>
-        <p class="text-secondary font-body-md text-sm italic mb-4">&ldquo;Bhram has built a discretion-first brand that the country's most private families trust.&rdquo;</p>
-        <p class="text-xs text-secondary uppercase tracking-[0.18em]">January 2024</p>
+      <article class="group flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden signature-shadow card-hover cursor-pointer">
+        <div class="relative aspect-[4/3] overflow-hidden bg-on-surface">
+          <img alt="Client testimonial — The Zen Villa" loading="lazy" class="w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80"/>
+          <span class="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors"></span>
+          <span class="absolute inset-0 flex items-center justify-center">
+            <span class="material-symbols-outlined text-white text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+          </span>
+        </div>
+        <div class="flex flex-col gap-2.5 p-6">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-primary font-semibold">Client &middot; The Zen Villa</p>
+          <h3 class="font-headline-md text-xl leading-snug text-on-surface">&ldquo;A truly effortless experience&rdquo;</h3>
+        </div>
       </article>
-      <article class="bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
-        <p class="text-primary-container font-label-md text-label-md uppercase tracking-[0.18em] mb-3">The Hindu Business Line</p>
-        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-3">Why the Sky Penthouse redefined Mumbai's skyline</h3>
-        <p class="text-secondary font-body-md text-sm italic mb-4">&ldquo;Three years in the making, and the most talked-about residence on Marine Drive.&rdquo;</p>
-        <p class="text-xs text-secondary uppercase tracking-[0.18em]">November 2023</p>
-      </article>
-      <article class="bg-white rounded-2xl p-7 md:p-8 signature-shadow card-hover">
-        <p class="text-primary-container font-label-md text-label-md uppercase tracking-[0.18em] mb-3">Vogue India</p>
-        <h3 class="font-headline-md text-on-surface text-xl md:text-2xl mb-3">The Zen Villa, photographed at dawn</h3>
-        <p class="text-secondary font-body-md text-sm italic mb-4">&ldquo;A house that listens to the tide and breathes with it.&rdquo;</p>
-        <p class="text-xs text-secondary uppercase tracking-[0.18em]">August 2023</p>
+      <article class="group flex flex-col bg-surface-container-lowest rounded-2xl overflow-hidden signature-shadow card-hover cursor-pointer">
+        <div class="relative aspect-[4/3] overflow-hidden bg-on-surface">
+          <img alt="Family testimonial — Marine Drive Residence" loading="lazy" class="w-full h-full object-cover object-[center_30%] transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=1200&q=80"/>
+          <span class="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors"></span>
+          <span class="absolute inset-0 flex items-center justify-center">
+            <span class="material-symbols-outlined text-white text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+          </span>
+        </div>
+        <div class="flex flex-col gap-2.5 p-6">
+          <p class="text-[10px] uppercase tracking-[0.2em] text-primary font-semibold">Family &middot; Marine Drive Residence</p>
+          <h3 class="font-headline-md text-xl leading-snug text-on-surface">&ldquo;The home we always dreamed of&rdquo;</h3>
+        </div>
       </article>
     </div>
   </section>
@@ -150,43 +223,52 @@
         <h2 class="font-headline-lg-mobile md:text-headline-lg text-on-surface">Brand Films &amp; Tours</h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-        <div class="group relative aspect-video rounded-2xl overflow-hidden signature-shadow bg-on-surface">
-          <img alt="The Bhram brand film" loading="lazy" class="w-full h-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100" src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1200&q=80"/>
-          <span class="absolute inset-0 flex items-center justify-center">
-            <span class="material-symbols-outlined text-white text-7xl drop-shadow-lg" style="font-variation-settings: 'FILL' 1;">play_circle</span>
-          </span>
-          <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 to-transparent text-white">
-            <p class="text-[10px] uppercase tracking-[0.22em] text-primary-fixed-dim mb-1">Brand Film</p>
-            <h3 class="font-headline-md text-lg">The Bhram Standard</h3>
+        <article class="group flex flex-col bg-surface rounded-2xl overflow-hidden signature-shadow card-hover cursor-pointer">
+          <div class="relative aspect-video overflow-hidden bg-on-surface">
+            <img alt="The Bhram brand film" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=1200&q=80"/>
+            <span class="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors"></span>
+            <span class="absolute inset-0 flex items-center justify-center">
+              <span class="material-symbols-outlined text-white text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+            </span>
           </div>
-        </div>
-        <div class="group relative aspect-video rounded-2xl overflow-hidden signature-shadow bg-on-surface">
-          <img alt="Tour of the Sky Penthouse" loading="lazy" class="w-full h-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"/>
-          <span class="absolute inset-0 flex items-center justify-center">
-            <span class="material-symbols-outlined text-white text-7xl drop-shadow-lg" style="font-variation-settings: 'FILL' 1;">play_circle</span>
-          </span>
-          <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 to-transparent text-white">
-            <p class="text-[10px] uppercase tracking-[0.22em] text-primary-fixed-dim mb-1">Project Tour</p>
-            <h3 class="font-headline-md text-lg">Inside the Sky Penthouse</h3>
+          <div class="flex flex-col gap-2.5 p-6">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-primary font-semibold">Brand Film</p>
+            <h3 class="font-headline-md text-xl leading-snug text-on-surface">The Bhram Standard</h3>
           </div>
-        </div>
-        <div class="group relative aspect-video rounded-2xl overflow-hidden signature-shadow bg-on-surface">
-          <img alt="Aerial of the Zen Villa" loading="lazy" class="w-full h-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100" src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80"/>
-          <span class="absolute inset-0 flex items-center justify-center">
-            <span class="material-symbols-outlined text-white text-7xl drop-shadow-lg" style="font-variation-settings: 'FILL' 1;">play_circle</span>
-          </span>
-          <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/80 to-transparent text-white">
-            <p class="text-[10px] uppercase tracking-[0.22em] text-primary-fixed-dim mb-1">Drone</p>
-            <h3 class="font-headline-md text-lg">The Zen Villa, from above</h3>
+        </article>
+        <article class="group flex flex-col bg-surface rounded-2xl overflow-hidden signature-shadow card-hover cursor-pointer">
+          <div class="relative aspect-video overflow-hidden bg-on-surface">
+            <img alt="Tour of the Sky Penthouse" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"/>
+            <span class="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors"></span>
+            <span class="absolute inset-0 flex items-center justify-center">
+              <span class="material-symbols-outlined text-white text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+            </span>
           </div>
-        </div>
+          <div class="flex flex-col gap-2.5 p-6">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-primary font-semibold">Project Tour</p>
+            <h3 class="font-headline-md text-xl leading-snug text-on-surface">Inside the Sky Penthouse</h3>
+          </div>
+        </article>
+        <article class="group flex flex-col bg-surface rounded-2xl overflow-hidden signature-shadow card-hover cursor-pointer">
+          <div class="relative aspect-video overflow-hidden bg-on-surface">
+            <img alt="Aerial of the Zen Villa" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1200&q=80"/>
+            <span class="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors"></span>
+            <span class="absolute inset-0 flex items-center justify-center">
+              <span class="material-symbols-outlined text-white text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+            </span>
+          </div>
+          <div class="flex flex-col gap-2.5 p-6">
+            <p class="text-[10px] uppercase tracking-[0.2em] text-primary font-semibold">Drone</p>
+            <h3 class="font-headline-md text-xl leading-snug text-on-surface">The Zen Villa, from above</h3>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
   <!-- ============ PHOTO GALLERY ============ -->
   <section id="gallery" class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-20">
-    <div class="mb-10">
+    <div class="mb-12">
       <p class="eyebrow text-primary font-label-md text-label-md uppercase mb-3">Visual archive</p>
       <h2 class="font-headline-lg-mobile md:text-headline-lg text-on-surface">Gallery</h2>
     </div>
@@ -199,88 +281,6 @@
       <div class="aspect-square overflow-hidden rounded-xl signature-shadow"><img alt="Coastal villa pool" loading="lazy" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=900&q=80"/></div>
       <div class="aspect-square overflow-hidden rounded-xl signature-shadow"><img alt="Brutalist concrete" loading="lazy" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"/></div>
       <div class="aspect-square overflow-hidden rounded-xl signature-shadow"><img alt="Lutyens bungalow" loading="lazy" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80"/></div>
-    </div>
-  </section>
-
-  <!-- ============ AWARDS ============ -->
-  <section id="awards" class="bg-inverse-surface text-white px-margin-mobile md:px-margin-desktop py-20">
-    <div class="max-w-container-max mx-auto">
-      <div class="mb-12">
-        <p class="eyebrow text-primary-fixed-dim font-label-md text-label-md uppercase mb-3">Honours</p>
-        <h2 class="font-headline-lg-mobile md:text-headline-lg text-white">Awards &amp; Recognition</h2>
-      </div>
-      <div class="space-y-5">
-        <div class="flex items-start md:items-center gap-6 p-6 md:p-8 bg-white/5 rounded-2xl backdrop-blur-sm">
-          <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl bg-primary-fixed-dim/20 flex items-center justify-center">
-            <span class="material-symbols-outlined text-primary-fixed-dim text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
-          </div>
-          <div class="flex-1">
-            <p class="text-primary-fixed-dim font-label-md text-label-md uppercase tracking-[0.18em] mb-1">2024 &middot; Times Real Estate Conclave</p>
-            <h3 class="font-headline-md text-white text-xl md:text-2xl">Luxury Developer of the Year</h3>
-            <p class="text-white/70 font-body-md text-sm mt-2 leading-relaxed">Recognised for an unbroken decade of completed luxury residences across India's top six cities.</p>
-          </div>
-        </div>
-        <div class="flex items-start md:items-center gap-6 p-6 md:p-8 bg-white/5 rounded-2xl backdrop-blur-sm">
-          <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl bg-primary-fixed-dim/20 flex items-center justify-center">
-            <span class="material-symbols-outlined text-primary-fixed-dim text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
-          </div>
-          <div class="flex-1">
-            <p class="text-primary-fixed-dim font-label-md text-label-md uppercase tracking-[0.18em] mb-1">2023 &middot; FIABCI India</p>
-            <h3 class="font-headline-md text-white text-xl md:text-2xl">Best Residential Project &mdash; The Sky Penthouse</h3>
-            <p class="text-white/70 font-body-md text-sm mt-2 leading-relaxed">India's submission to the global FIABCI Prix d'Excellence.</p>
-          </div>
-        </div>
-        <div class="flex items-start md:items-center gap-6 p-6 md:p-8 bg-white/5 rounded-2xl backdrop-blur-sm">
-          <div class="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-xl bg-primary-fixed-dim/20 flex items-center justify-center">
-            <span class="material-symbols-outlined text-primary-fixed-dim text-3xl" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
-          </div>
-          <div class="flex-1">
-            <p class="text-primary-fixed-dim font-label-md text-label-md uppercase tracking-[0.18em] mb-1">2022 &middot; Architectural Digest India 50</p>
-            <h3 class="font-headline-md text-white text-xl md:text-2xl">Top 50 Architects &amp; Designers</h3>
-            <p class="text-white/70 font-body-md text-sm mt-2 leading-relaxed">A standing place on AD India's annual list of the country's most influential design firms.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ JOURNAL (BLOG) ============ -->
-  <section id="journal" class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-20">
-    <div class="mb-12">
-      <p class="eyebrow text-primary font-label-md text-label-md uppercase mb-3">Long reads</p>
-      <h2 class="font-headline-lg-mobile md:text-headline-lg text-on-surface">The Journal</h2>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-      <article class="bg-white rounded-2xl overflow-hidden signature-shadow card-hover">
-        <div class="aspect-[4/3] overflow-hidden">
-          <img alt="On materiality" loading="lazy" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=80"/>
-        </div>
-        <div class="p-6 flex flex-col">
-          <p class="text-xs text-secondary uppercase tracking-[0.18em] mb-2">February 2024 &bull; Bhram Realty</p>
-          <h3 class="font-headline-md text-on-surface text-xl mb-3">On materiality: why we still choose board-marked concrete</h3>
-          <p class="text-secondary font-body-md text-sm leading-relaxed">A short essay on the slow craft of in-situ concrete, and why we'd rather wait six months for a wall than ship in a finish.</p>
-        </div>
-      </article>
-      <article class="bg-white rounded-2xl overflow-hidden signature-shadow card-hover">
-        <div class="aspect-[4/3] overflow-hidden">
-          <img alt="The Indian veranda" loading="lazy" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=900&q=80"/>
-        </div>
-        <div class="p-6 flex flex-col">
-          <p class="text-xs text-secondary uppercase tracking-[0.18em] mb-2">November 2023 &bull; Bhram Realty</p>
-          <h3 class="font-headline-md text-on-surface text-xl mb-3">A short defence of the Indian veranda</h3>
-          <p class="text-secondary font-body-md text-sm leading-relaxed">Notes on the architectural element our grandparents understood better than any of us, and what it offers a modern home.</p>
-        </div>
-      </article>
-      <article class="bg-white rounded-2xl overflow-hidden signature-shadow card-hover">
-        <div class="aspect-[4/3] overflow-hidden">
-          <img alt="The architecture of patience" loading="lazy" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80"/>
-        </div>
-        <div class="p-6 flex flex-col">
-          <p class="text-xs text-secondary uppercase tracking-[0.18em] mb-2">August 2023 &bull; Bhram Realty</p>
-          <h3 class="font-headline-md text-on-surface text-xl mb-3">The architecture of patience</h3>
-          <p class="text-secondary font-body-md text-sm leading-relaxed">Why our completion timelines are longer than our peers', and why our buyers thank us for it.</p>
-        </div>
-      </article>
     </div>
   </section>
 
@@ -323,5 +323,11 @@
   </div>
 </footer>
 
+<!-- ============ Floating call button ============ -->
+<a href="tel:+919900000000" aria-label="Call Bhram Realty" title="Call us" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary text-white shadow-[0_18px_40px_-12px_rgba(115,92,0,0.6)] hover:bg-on-surface hover:scale-105 active:scale-95 transition-all duration-300 float-cta">
+<span class="material-symbols-outlined text-[26px] md:text-[28px]" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">call</span>
+</a>
+
+<script src="js/main.js"></script>
 </body>
 </html>

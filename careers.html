@@ -7,6 +7,7 @@
 <meta name="description" content="Join Bhram Realty. Explore open roles across architecture, design, sales, and operations."/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
   tailwind.config = {
@@ -61,37 +62,103 @@
   .card-hover:hover { transform: translateY(-4px); box-shadow: 0 40px 70px -32px rgba(40,35,18,0.32); }
   body { min-height: 100dvh; }
 </style>
+<link href="css/styles.css" rel="stylesheet"/>
 </head>
 <body class="bg-surface text-on-surface font-body-md overflow-x-hidden antialiased">
 
 <!-- ============ HEADER ============ -->
-<header id="site-header" class="fixed top-0 w-full z-50 bg-surface/85 backdrop-blur-md">
-  <nav class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
-    <a href="index.html" class="font-headline-md text-xl md:text-2xl tracking-[0.2em] text-on-surface uppercase font-semibold">BHRAM REALTY</a>
-    <div class="hidden md:flex items-center gap-10">
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="projects.html">Portfolio</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="media.html">Media</a>
-      <a class="text-primary font-semibold font-label-md text-label-md uppercase tracking-[0.18em]" href="careers.html">Careers</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="index.html#philosophy">About</a>
-      <a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-[0.18em]" href="index.html#contact">Contact</a>
-    </div>
-    <a class="md:hidden text-primary font-label-md text-label-sm uppercase tracking-[0.18em]" href="index.html">Home</a>
-  </nav>
+<header id="site-header" class="fixed top-0 inset-x-0 z-50">
+<div class="site-header__hairline" aria-hidden="true"></div>
+<div class="site-header__inner flex items-center justify-between gap-4 md:gap-8 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-3 min-w-0">
+<button id="mobile-menu-button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" class="header-icon-btn md:hidden -ml-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<a href="index.html" class="brand" aria-label="Bhram Realty — Home">
+<span class="brand__mark" aria-hidden="true">Br</span>
+<span class="brand__wordmark">Bhram Realty</span>
+</a>
+</div>
+<nav class="hidden md:flex items-center gap-9 lg:gap-11" aria-label="Primary">
+<a class="site-nav-link" href="projects.html" data-nav="projects">Portfolio</a>
+<a class="site-nav-link" href="media.html" data-nav="media">Media</a>
+<a class="site-nav-link" href="careers.html" data-nav="careers">Careers</a>
+<a class="site-nav-link" href="index.html#philosophy" data-nav="about">About</a>
+</nav>
+<div class="flex items-center gap-1.5 md:gap-2">
+<button type="button" class="header-icon-btn" aria-label="Search">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+<a href="index.html#contact" class="header-cta hidden md:inline-flex">
+<span>Inquire</span>
+<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+</a>
+</div>
+</div>
 </header>
+
+<!-- ============ MOBILE NAVIGATION DRAWER ============ -->
+<div id="mobile-menu" class="fixed inset-0 z-[60] pointer-events-none md:hidden" aria-hidden="true">
+<div class="absolute inset-0 bg-black/50 opacity-0 transition-opacity duration-300" data-menu-backdrop></div>
+<aside class="absolute top-0 right-0 h-full w-[88%] max-w-sm bg-surface shadow-2xl translate-x-full transition-transform duration-300 ease-out flex flex-col" data-menu-panel role="dialog" aria-modal="true" aria-label="Site navigation">
+<div class="flex items-center justify-between h-16 px-5 border-b border-surface-container-high shrink-0">
+<a href="index.html" class="brand" aria-label="Bhram Realty — Home" data-menu-link>
+<span class="brand__mark" aria-hidden="true">Br</span>
+<span class="brand__wordmark">Bhram Realty</span>
+</a>
+<button id="mobile-menu-close" aria-label="Close menu" class="header-icon-btn -mr-2">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<nav class="flex-1 overflow-y-auto py-3" aria-label="Mobile primary">
+<a class="drawer-link" href="projects.html" data-menu-link>
+<span class="drawer-link__num">01</span>
+<span class="drawer-link__label">Portfolio</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="media.html" data-menu-link>
+<span class="drawer-link__num">02</span>
+<span class="drawer-link__label">Media</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="careers.html" data-menu-link>
+<span class="drawer-link__num">03</span>
+<span class="drawer-link__label">Careers</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="index.html#philosophy" data-menu-link>
+<span class="drawer-link__num">04</span>
+<span class="drawer-link__label">About</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+<a class="drawer-link" href="index.html#contact" data-menu-link>
+<span class="drawer-link__num">05</span>
+<span class="drawer-link__label">Contact</span>
+<span class="material-symbols-outlined drawer-link__chev" aria-hidden="true">arrow_forward</span>
+</a>
+</nav>
+<div class="px-6 pt-6 pb-7 border-t border-surface-container-high shrink-0 space-y-4">
+<p class="eyebrow text-primary">Concierge</p>
+<a href="tel:+919900000000" class="drawer-contact">
+<span class="material-symbols-outlined" aria-hidden="true">call</span>
+<span>+91 99 000 00000</span>
+</a>
+<a href="mailto:concierge@bhramrealty.com" class="drawer-contact">
+<span class="material-symbols-outlined" aria-hidden="true">mail</span>
+<span>concierge@bhramrealty.com</span>
+</a>
+<a href="index.html#contact" class="block text-center mt-2 px-6 py-3.5 bg-on-surface text-white rounded-full font-label-md text-label-md uppercase tracking-widest hover:bg-primary transition-colors" data-menu-link>Inquire</a>
+</div>
+</aside>
+</div>
 
 <main class="pt-20">
 
-  <!-- ============ HERO STRIP ============ -->
-  <section class="relative h-[42vh] min-h-[300px] max-h-[460px] flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 z-0">
-      <img alt="Careers at Bhram Realty" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=2000&q=80"/>
-      <div class="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/65"></div>
-    </div>
-    <div class="relative z-10 text-center px-margin-mobile max-w-3xl">
-      <p class="eyebrow text-primary-fixed-dim font-label-md text-label-md uppercase mb-5">Careers</p>
-      <h1 class="text-white font-display-lg-mobile md:text-display-lg drop-shadow-md">Build with us</h1>
-      <p class="text-white/85 font-body-lg text-body-lg mt-6 max-w-2xl mx-auto">Bhram Realty is built by architects, designers, craftspeople, and storytellers. Browse the open roles below.</p>
-    </div>
+  <!-- ============ PAGE HEADER ============ -->
+  <section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto pt-10 md:pt-16 text-center">
+    <p class="eyebrow text-primary font-label-md text-label-md uppercase mb-4">Careers</p>
+    <h1 class="font-display-lg-mobile md:text-display-lg text-on-surface">Build with us</h1>
+    <p class="text-secondary font-body-lg text-body-lg mt-5 max-w-2xl mx-auto">Bhram Realty is built by architects, designers, craftspeople, and storytellers. Browse the open roles below.</p>
   </section>
 
   <!-- ============ INTRO ============ -->
@@ -217,5 +284,11 @@
   </div>
 </footer>
 
+<!-- ============ Floating call button ============ -->
+<a href="tel:+919900000000" aria-label="Call Bhram Realty" title="Call us" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary text-white shadow-[0_18px_40px_-12px_rgba(115,92,0,0.6)] hover:bg-on-surface hover:scale-105 active:scale-95 transition-all duration-300 float-cta">
+<span class="material-symbols-outlined text-[26px] md:text-[28px]" style="font-variation-settings: 'FILL' 1;" aria-hidden="true">call</span>
+</a>
+
+<script src="js/main.js"></script>
 </body>
 </html>

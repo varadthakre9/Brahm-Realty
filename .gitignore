@@ -1,15 +1,14 @@
-# Build output
-_site/
-
-# Dependencies
-node_modules/
-
-# Local Netlify CLI cache
-.netlify/
-
 # OS / editor noise
 .DS_Store
 Thumbs.db
 *.log
 .vscode/
 .idea/
+
+# Node / server runtime
+node_modules/
+data/
+uploads/
+
+# Secrets (Cloudinary / Turso / admin login) — never commit
+.env

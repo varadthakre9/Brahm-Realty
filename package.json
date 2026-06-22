@@ -2,15 +2,23 @@
   "name": "bhram-realty",
   "version": "1.0.0",
   "private": true,
-  "description": "Bhram Realty — luxury real estate website (Eleventy + Decap CMS)",
+  "description": "Bhram Realty website with an admin panel, Turso (cloud DB) and Cloudinary images.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "build": "eleventy",
-    "serve": "eleventy --serve",
-    "start": "eleventy --serve --port=8080",
-    "clean": "rimraf _site"
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.17.4",
+    "cloudinary": "^2.10.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "multer": "^2.2.0",
+    "win-ca": "^3.5.1"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0",
-    "rimraf": "^5.0.5"
+    "better-sqlite3": "^12.11.1"
   }
 }
