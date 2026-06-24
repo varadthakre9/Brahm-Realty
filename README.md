@@ -16,6 +16,12 @@ folder, run by one small Node server.
 - **AWS EC2** — see [`deploy/DEPLOY-EC2.md`](deploy/DEPLOY-EC2.md) for an end-to-end walkthrough (launch instance → SSH → one-line setup script).
 - **Render** — push to `main` and Render auto-deploys. Set the same env vars in the service's **Environment** tab.
 
+## Picking up the project on a new computer
+
+See [`deploy/CONTINUE-FROM-NEW-MACHINE.md`](deploy/CONTINUE-FROM-NEW-MACHINE.md) —
+covers installing tools, cloning, recreating `.env`, transferring the EC2 SSH
+key, daily git workflow, and deploying updates to production.
+
 ## Running it locally
 
 You need [Node.js](https://nodejs.org) (v20+) installed. Then, from this folder:
