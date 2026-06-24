@@ -198,9 +198,9 @@ header#site-header.is-scrolled {
     background: linear-gradient(
         90deg,
         transparent 0%,
-        rgba(212, 175, 55, 0.55) 18%,
+        rgba(216, 166, 44, 0.55) 18%,
         #e9c349 50%,
-        rgba(212, 175, 55, 0.55) 82%,
+        rgba(216, 166, 44, 0.55) 82%,
         transparent 100%
     );
 }
@@ -215,46 +215,68 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     header#site-header.is-scrolled .site-header__inner { height: 56px; }
 }
 
-/* ---- Brand emblem + wordmark ----------------------------------------- */
+/* ---- Brand: full client logo + wordmark/tagline text beside it ---- */
 .brand {
-    color: #1b1c1b;
     display: inline-flex;
     align-items: center;
     gap: 10px;
     text-decoration: none;
 }
-.brand__mark {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-style: italic;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 1;
-    color: #735c00;
-    padding: 4px 9px 5px;
-    border: 1px solid rgba(115, 92, 0, 0.45);
-    border-radius: 8px;
-    transition: background-color 0.35s ease,
-                color 0.35s ease,
-                border-color 0.35s ease;
+.brand__logo {
+    height: 46px;
+    width: auto;
+    display: block;
+    transition: transform 0.35s ease, height 0.35s ease;
 }
 @media (min-width: 768px) {
-    .brand__mark { font-size: 24px; padding: 5px 10px 6px; }
+    .brand__logo { height: 56px; }
 }
-.brand:hover .brand__mark {
-    background: #735c00;
-    color: #fff;
-    border-color: #735c00;
+header#site-header.is-scrolled .brand__logo { height: 48px; }
+@media (max-width: 767px) {
+    header#site-header.is-scrolled .brand__logo { height: 40px; }
+}
+.brand:hover .brand__logo { transform: scale(1.04); }
+/* On dark footers, drop a soft gold glow so the logo lifts off the background. */
+.brand--dark .brand__logo {
+    height: 64px;
+    filter: drop-shadow(0 4px 14px rgba(216, 166, 44, 0.28));
+}
+
+/* Text lockup beside the logo — matches the gold gradient + Poppins of the
+   original logo artwork so it reads as a continuous wordmark. */
+.brand__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+    min-width: 0;
 }
 .brand__wordmark {
-    font-family: 'Manrope', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 13px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
+    font-family: 'Poppins', 'Manrope', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.005em;
+    line-height: 1.05;
+    white-space: nowrap;
+    color: #c2851b;
 }
 @media (min-width: 768px) {
-    .brand__wordmark { font-size: 14px; letter-spacing: 0.24em; }
+    .brand__wordmark { font-size: 26px; }
 }
+.brand__tagline {
+    font-family: 'Poppins', 'Manrope', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 10px;
+    letter-spacing: 0.005em;
+    color: #c2851b;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+@media (min-width: 768px) {
+    .brand__tagline { font-size: 12px; }
+}
+.brand--dark .brand__wordmark,
+.brand--dark .brand__tagline { color: #d8a62c; }
 
 /* ---- Desktop nav links ----------------------------------------------- */
 .site-nav-link {
@@ -395,6 +417,29 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     color: #735c00;
 }
 .drawer-contact:hover { color: #1b1c1b; }
+.drawer-contact svg { width: 17px; height: 17px; fill: #735c00; flex: none; }
+
+/* ---- Social icons (light contexts: contact + light footers) ---------- */
+.social-icon {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid rgba(115, 92, 0, 0.28);
+    color: #735c00;
+    background: rgba(216, 166, 44, 0.06);
+    transition: background-color 0.3s ease, color 0.3s ease,
+                border-color 0.3s ease, transform 0.3s ease;
+}
+.social-icon:hover {
+    background: #735c00;
+    color: #fff;
+    border-color: #735c00;
+    transform: translateY(-2px);
+}
+.social-icon svg { width: 18px; height: 18px; fill: currentColor; }
 
 /* ============================================================================
    Featured Estates — mobile pagination dots
@@ -506,7 +551,7 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     left: 16px;
     padding: 7px 18px;
     border-radius: 9999px;
-    background: #d4af37;
+    background: #d8a62c;
     color: #1b1c1b;
     font-family: 'Manrope', sans-serif;
     font-size: 10.5px;
@@ -725,7 +770,7 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     display: inline-block;
 }
 .site-footer-dark__list a:hover {
-    color: #d4af37;
+    color: #d8a62c;
     transform: translateX(2px);
 }
 
@@ -764,10 +809,11 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 .site-footer-dark__icon:hover {
-    background: rgba(212, 175, 55, 0.15);
-    color: #d4af37;
-    border-color: rgba(212, 175, 55, 0.4);
+    background: rgba(216, 166, 44, 0.15);
+    color: #d8a62c;
+    border-color: rgba(216, 166, 44, 0.4);
 }
+.site-footer-dark__icon svg { width: 17px; height: 17px; fill: currentColor; }
 
 /* ---- Newsletter signup ---- */
 .newsletter-form {
@@ -778,7 +824,7 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     padding-bottom: 6px;
     transition: border-color 0.3s ease;
 }
-.newsletter-form:focus-within { border-color: #d4af37; }
+.newsletter-form:focus-within { border-color: #d8a62c; }
 
 .newsletter-input {
     flex: 1;
@@ -805,20 +851,8 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     transition: color 0.3s ease, transform 0.3s ease;
 }
 .newsletter-btn:hover {
-    color: #d4af37;
+    color: #d8a62c;
     transform: translateX(2px);
-}
-
-/* ---- Brand emblem variant for use on dark backgrounds ---- */
-.brand--dark { color: #fff; }
-.brand--dark .brand__mark {
-    color: #d4af37;
-    border-color: rgba(212, 175, 55, 0.5);
-}
-.brand--dark:hover .brand__mark {
-    background: #d4af37;
-    color: #1b1c1b;
-    border-color: #d4af37;
 }
 
 /* ----------------------------------------------------------------------------
@@ -921,3 +955,38 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     .btn-shine::before { display: none; }
     .link-underline::after { transition: none; }
 }
+
+/* ----------------------------------------------------------------------------
+   Media lightbox — opens YouTube/Vimeo videos and gallery photos in an overlay
+   ---------------------------------------------------------------------------- */
+.media-lightbox {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0, 0, 0, 0.86); backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center;
+    padding: clamp(16px, 4vw, 56px);
+    opacity: 0; transition: opacity .25s ease;
+}
+.media-lightbox.is-open { display: flex; opacity: 1; }
+.media-lightbox-close {
+    position: absolute; top: 18px; right: 18px;
+    width: 44px; height: 44px; border-radius: 50%; border: 0;
+    background: rgba(255, 255, 255, 0.12); color: #fff; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background .15s ease;
+}
+.media-lightbox-close:hover { background: rgba(255, 255, 255, 0.22); }
+.media-lightbox-close .material-symbols-outlined { font-size: 24px; }
+.media-lightbox-inner {
+    width: 100%; max-width: 1100px;
+    max-height: 86vh; display: flex; align-items: center; justify-content: center;
+}
+.media-lightbox-inner img {
+    max-width: 100%; max-height: 86vh; object-fit: contain;
+    border-radius: 10px; box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+}
+.media-lightbox-frame {
+    width: 100%; aspect-ratio: 16 / 9; max-height: 86vh;
+    background: #000; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+}
+.media-lightbox-frame iframe { width: 100%; height: 100%; border: 0; display: block; }

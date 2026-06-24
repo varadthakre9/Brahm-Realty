@@ -46,7 +46,7 @@ tailwind.config = {
                 'on-error': '#ffffff',
                 'inverse-primary': '#e9c349',
                 'outline': '#7f7669',
-                'primary-container': '#d4af37',
+                'primary-container': '#d8a62c',
                 'on-secondary': '#ffffff',
                 'surface-tint': '#735c00',
                 'primary-fixed': '#ffe088',

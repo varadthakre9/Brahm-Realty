@@ -15,4 +15,8 @@ module.exports = {
 
     // Max upload size per image (in megabytes).
     maxImageMb: Number(process.env.MAX_IMAGE_MB || 8),
+
+    // Max upload size per video (in megabytes). Hero & media-section videos.
+    // Keep this modest — large files inflate bandwidth on the homepage.
+    maxVideoMb: Number(process.env.MAX_VIDEO_MB || 25),
 };

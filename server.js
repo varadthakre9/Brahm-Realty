@@ -68,6 +68,40 @@ const upload = multer({
     },
 });
 
+// Larger uploader that accepts images OR videos (hero banner, etc.). Uses the
+// max of the image and video limits so multer's check fires before our own
+// mimetype filter — we re-check size per-type after upload.
+const uploadMedia = multer({
+    storage,
+    limits: { fileSize: Math.max(config.maxImageMb, config.maxVideoMb) * 1024 * 1024 },
+    fileFilter: (req, file, cb) => {
+        if (/^image\//.test(file.mimetype) || /^video\//.test(file.mimetype)) cb(null, true);
+        else cb(new Error('Only image or video files are allowed.'));
+    },
+});
+
+function isVideoMime(m) { return /^video\//.test(m || ''); }
+
+// Push a buffer (Cloudinary mode) OR adopt a written disk file (local mode) and
+// return { url, public_id, kind } where kind is 'image' or 'video'.
+async function storeUploadedFile(file) {
+    const kind = isVideoMime(file.mimetype) ? 'video' : 'image';
+    if (cloud.enabled) {
+        const r = await cloud.uploadBuffer(file.buffer, { resourceType: kind });
+        return { url: r.secure_url, public_id: r.public_id, kind };
+    }
+    return { url: file.filename, public_id: '', kind };
+}
+
+// Remove a Cloudinary asset OR local file. resourceType matters on Cloudinary.
+function removeStoredAsset({ url, public_id, kind = 'image' } = {}) {
+    if (public_id) return cloud.destroy(public_id, { resourceType: kind });
+    if (url && !/^https?:\/\//i.test(url)) {
+        return fs.promises.unlink(path.join(UPLOAD_DIR, url)).catch(() => {});
+    }
+    return Promise.resolve();
+}
+
 // ---------------------------------------------------------------------- auth
 // Simple in-memory token set. Tokens are lost on restart (re-login needed).
 const tokens = new Set();
@@ -189,12 +223,230 @@ app.delete('/api/images/:imageId', requireAuth, async (req, res, next) => {
     } catch (err) { next(err); }
 });
 
+// =====================================================================
+//   Site settings — homepage hero media, etc.
+// =====================================================================
+const HERO_KEYS = ['hero_media_url', 'hero_media_public_id', 'hero_media_type'];
+
+app.get('/api/site-settings', async (req, res, next) => {
+    try {
+        const keys = req.query.keys ? String(req.query.keys).split(',').map((s) => s.trim()).filter(Boolean) : null;
+        res.json(await store.getSettings(keys));
+    } catch (err) { next(err); }
+});
+
+app.put('/api/site-settings', requireAuth, async (req, res, next) => {
+    try {
+        const pairs = req.body && typeof req.body === 'object' ? req.body : {};
+        if (!Object.keys(pairs).length) return res.status(400).json({ error: 'No settings provided.' });
+        res.json(await store.setSettings(pairs));
+    } catch (err) { next(err); }
+});
+
+// Upload a single hero image OR video. Replaces the previous hero asset (if
+// stored on Cloudinary / local disk) once the new one is saved.
+app.post('/api/site-settings/hero-media', requireAuth, uploadMedia.single('media'), async (req, res, next) => {
+    try {
+        if (!req.file) return res.status(400).json({ error: 'No file received.' });
+        const kind = isVideoMime(req.file.mimetype) ? 'video' : 'image';
+        // Enforce per-type size limits (multer allowed the larger of the two).
+        const limit = kind === 'video' ? config.maxVideoMb : config.maxImageMb;
+        if (req.file.size > limit * 1024 * 1024) {
+            if (!cloud.enabled) await fs.promises.unlink(path.join(UPLOAD_DIR, req.file.filename)).catch(() => {});
+            return res.status(400).json({ error: `${kind === 'video' ? 'Video' : 'Image'} exceeds ${limit} MB.` });
+        }
+
+        const saved = await storeUploadedFile(req.file);
+        const prev = await store.getSettings(HERO_KEYS);
+        await store.setSettings({
+            hero_media_url: saved.url,
+            hero_media_public_id: saved.public_id,
+            hero_media_type: kind,
+        });
+        if (prev.hero_media_url && prev.hero_media_url !== saved.url) {
+            await removeStoredAsset({
+                url: prev.hero_media_url,
+                public_id: prev.hero_media_public_id,
+                kind: prev.hero_media_type === 'video' ? 'video' : 'image',
+            });
+        }
+        res.json({ url: saved.url, public_id: saved.public_id, type: kind });
+    } catch (err) { next(err); }
+});
+
+app.delete('/api/site-settings/hero-media', requireAuth, async (req, res, next) => {
+    try {
+        const prev = await store.getSettings(HERO_KEYS);
+        await store.setSettings({ hero_media_url: '', hero_media_public_id: '', hero_media_type: '' });
+        if (prev.hero_media_url) {
+            await removeStoredAsset({
+                url: prev.hero_media_url,
+                public_id: prev.hero_media_public_id,
+                kind: prev.hero_media_type === 'video' ? 'video' : 'image',
+            });
+        }
+        res.json({ ok: true });
+    } catch (err) { next(err); }
+});
+
+// =====================================================================
+//   Testimonials
+// =====================================================================
+app.get('/api/testimonials', async (req, res, next) => {
+    try {
+        const visibleOnly = req.query.visible === '1' || req.query.visible === 'true';
+        res.json(await store.listTestimonials({ visibleOnly }));
+    } catch (err) { next(err); }
+});
+
+app.post('/api/testimonials', requireAuth, async (req, res, next) => {
+    try {
+        if (!String((req.body && req.body.name) || '').trim()) {
+            return res.status(400).json({ error: 'Name is required.' });
+        }
+        if (!String((req.body && req.body.content) || '').trim()) {
+            return res.status(400).json({ error: 'Testimonial content is required.' });
+        }
+        res.status(201).json(await store.createTestimonial(req.body));
+    } catch (err) { next(err); }
+});
+
+app.put('/api/testimonials/:id', requireAuth, async (req, res, next) => {
+    try {
+        const updated = await store.updateTestimonial(Number(req.params.id), req.body || {});
+        if (!updated) return res.status(404).json({ error: 'Testimonial not found.' });
+        res.json(updated);
+    } catch (err) { next(err); }
+});
+
+app.delete('/api/testimonials/:id', requireAuth, async (req, res, next) => {
+    try {
+        const removed = await store.deleteTestimonial(Number(req.params.id));
+        if (!removed) return res.status(404).json({ error: 'Testimonial not found.' });
+        if (removed.photo || removed.photo_public_id) {
+            await removeStoredAsset({ url: removed.photo, public_id: removed.photo_public_id, kind: 'image' });
+        }
+        res.json({ ok: true });
+    } catch (err) { next(err); }
+});
+
+app.post('/api/testimonials/:id/photo', requireAuth, upload.single('photo'), async (req, res, next) => {
+    try {
+        if (!req.file) return res.status(400).json({ error: 'No file received.' });
+        const id = Number(req.params.id);
+        const current = await store.getTestimonial(id);
+        if (!current) {
+            await removeStoredAsset({ url: req.file.filename, public_id: '', kind: 'image' });
+            return res.status(404).json({ error: 'Testimonial not found.' });
+        }
+        const saved = await storeUploadedFile(req.file);
+        const updated = await store.updateTestimonial(id, { photo: saved.url, photo_public_id: saved.public_id });
+        if (current.photo || current.photo_public_id) {
+            await removeStoredAsset({ url: current.photo, public_id: current.photo_public_id, kind: 'image' });
+        }
+        res.json(updated);
+    } catch (err) { next(err); }
+});
+
+// =====================================================================
+//   Media items (video testimonials / brand films / gallery photos)
+// =====================================================================
+app.get('/api/media', async (req, res, next) => {
+    try {
+        const visibleOnly = req.query.visible === '1' || req.query.visible === 'true';
+        const kind = req.query.kind ? String(req.query.kind) : undefined;
+        res.json(await store.listMedia({ kind, visibleOnly }));
+    } catch (err) { next(err); }
+});
+
+app.post('/api/media', requireAuth, async (req, res, next) => {
+    try {
+        const body = req.body || {};
+        if (!store.MEDIA_KINDS.has(body.kind)) {
+            return res.status(400).json({ error: 'kind must be one of: ' + [...store.MEDIA_KINDS].join(', ') });
+        }
+        res.status(201).json(await store.createMedia(body));
+    } catch (err) { next(err); }
+});
+
+app.put('/api/media/:id', requireAuth, async (req, res, next) => {
+    try {
+        const updated = await store.updateMedia(Number(req.params.id), req.body || {});
+        if (!updated) return res.status(404).json({ error: 'Media item not found.' });
+        res.json(updated);
+    } catch (err) { next(err); }
+});
+
+app.delete('/api/media/:id', requireAuth, async (req, res, next) => {
+    try {
+        const removed = await store.deleteMedia(Number(req.params.id));
+        if (!removed) return res.status(404).json({ error: 'Media item not found.' });
+        if (removed.thumbnail || removed.thumbnail_public_id) {
+            await removeStoredAsset({ url: removed.thumbnail, public_id: removed.thumbnail_public_id, kind: 'image' });
+        }
+        res.json({ ok: true });
+    } catch (err) { next(err); }
+});
+
+app.post('/api/media/:id/thumbnail', requireAuth, upload.single('thumbnail'), async (req, res, next) => {
+    try {
+        if (!req.file) return res.status(400).json({ error: 'No file received.' });
+        const id = Number(req.params.id);
+        const current = await store.getMedia(id);
+        if (!current) {
+            await removeStoredAsset({ url: req.file.filename, public_id: '', kind: 'image' });
+            return res.status(404).json({ error: 'Media item not found.' });
+        }
+        const saved = await storeUploadedFile(req.file);
+        const updated = await store.updateMedia(id, { thumbnail: saved.url, thumbnail_public_id: saved.public_id });
+        if (current.thumbnail || current.thumbnail_public_id) {
+            await removeStoredAsset({ url: current.thumbnail, public_id: current.thumbnail_public_id, kind: 'image' });
+        }
+        res.json(updated);
+    } catch (err) { next(err); }
+});
+
+// =====================================================================
+//   Careers
+// =====================================================================
+app.get('/api/careers', async (req, res, next) => {
+    try {
+        const visibleOnly = req.query.visible === '1' || req.query.visible === 'true';
+        res.json(await store.listCareers({ visibleOnly }));
+    } catch (err) { next(err); }
+});
+
+app.post('/api/careers', requireAuth, async (req, res, next) => {
+    try {
+        if (!String((req.body && req.body.title) || '').trim()) {
+            return res.status(400).json({ error: 'Job title is required.' });
+        }
+        res.status(201).json(await store.createCareer(req.body));
+    } catch (err) { next(err); }
+});
+
+app.put('/api/careers/:id', requireAuth, async (req, res, next) => {
+    try {
+        const updated = await store.updateCareer(Number(req.params.id), req.body || {});
+        if (!updated) return res.status(404).json({ error: 'Career not found.' });
+        res.json(updated);
+    } catch (err) { next(err); }
+});
+
+app.delete('/api/careers/:id', requireAuth, async (req, res, next) => {
+    try {
+        const ok = await store.deleteCareer(Number(req.params.id));
+        if (!ok) return res.status(404).json({ error: 'Career not found.' });
+        res.json({ ok: true });
+    } catch (err) { next(err); }
+});
+
 // ----------------------------------------------------------- static serving
 // Hide server-only files from the public web root.
 const BLOCKED = new Set([
     '/server.js', '/db.js', '/config.js', '/cloudinary.js',
-    '/migrate-images.js', '/migrate-to-turso.js', '/package.json',
-    '/package-lock.json', '/readme.md', '/deployment.md', '/.env',
+    '/package.json', '/package-lock.json', '/readme.md',
+    '/render.yaml', '/.env', '/.env.example',
 ]);
 app.use((req, res, next) => {
     const p = req.path.toLowerCase();
@@ -214,7 +466,7 @@ app.get('/project/:id', (req, res) => {
 
 // ----------------------------------------------------------- error handling
 app.use((err, req, res, next) => {
-    if (err instanceof multer.MulterError || /image files/.test(err.message)) {
+    if (err instanceof multer.MulterError || /image|video files/.test(err.message || '')) {
         return res.status(400).json({ error: err.message });
     }
     console.error(err);
@@ -226,7 +478,7 @@ async function start() {
     const projectCount = await store.count();
 
     app.listen(config.port, () => {
-        console.log('\n  Bhram Realty running');
+        console.log('\n  Brahm Estate running');
         console.log('  Website : http://localhost:' + config.port + '/');
         console.log('  Admin   : http://localhost:' + config.port + '/admin/');
         console.log('  Images  : ' + (cloud.enabled ? 'Cloudinary (cloud)' : 'local /uploads folder'));

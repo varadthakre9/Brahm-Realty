@@ -34,7 +34,7 @@
     function notFound(msg) {
         return `
         <div class="py-28 text-center">
-          <p class="eyebrow text-primary mb-3">Bhram Realty</p>
+          <p class="eyebrow text-primary mb-3">Brahm Estate</p>
           <h1 class="font-headline-md text-[30px] md:text-[40px] text-on-surface mb-4">${esc(msg)}</h1>
           <a href="/projects.html" class="inline-flex items-center gap-2 text-primary font-label-md text-label-md uppercase tracking-widest hover:gap-3 transition-all">
             <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Portfolio
@@ -50,7 +50,7 @@
         return;
     }
 
-    document.title = p.name + ' | Bhram Realty';
+    document.title = p.name + ' | Brahm Estate';
 
     /* ---------- Gallery / hero ---------- */
     const images = p.images || [];

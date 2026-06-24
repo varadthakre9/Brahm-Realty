@@ -163,15 +163,23 @@ window.BhramFeatured = (function () {
 // center of the viewport on mobile, and the dots reflect / control which card
 // is in view. On md+ the container becomes a grid and the dots are hidden.
 // ----------------------------------------------------------------------------
-(function () {
+// Exposed globally so render-testimonials.js can re-run the setup whenever
+// the carousel's children are replaced from the API.
+window.setupTestimonialDots = function setupTestimonialDots() {
     const carousel = document.getElementById('testimonial-grid');
     const dotsWrap = document.getElementById('testimonial-dots');
     if (!carousel || !dotsWrap) return;
 
+    // Tear down any previous observer attached to old cards.
+    if (window.__testimonialDotsObserver) {
+        try { window.__testimonialDotsObserver.disconnect(); } catch (_) { /* noop */ }
+        window.__testimonialDotsObserver = null;
+    }
+
     const cards = Array.from(carousel.querySelectorAll(':scope > figure'));
+    dotsWrap.innerHTML = '';
     if (!cards.length) return;
 
-    dotsWrap.innerHTML = '';
     const dots = cards.map((card, index) => {
         const dot = document.createElement('button');
         dot.type = 'button';
@@ -199,7 +207,9 @@ window.BhramFeatured = (function () {
         { root: carousel, threshold: [0.6, 0.9] }
     );
     cards.forEach((card) => observer.observe(card));
-})();
+    window.__testimonialDotsObserver = observer;
+};
+window.setupTestimonialDots();
 
 // ----------------------------------------------------------------------------
 // Scroll-triggered reveals + image reveals + stat count-ups
