@@ -11,6 +11,11 @@ folder, run by one small Node server.
 - **Images** — gallery photos are uploaded to [Cloudinary](https://cloudinary.com)
   and served from there.
 
+## Deploying
+
+- **AWS EC2** — see [`deploy/DEPLOY-EC2.md`](deploy/DEPLOY-EC2.md) for an end-to-end walkthrough (launch instance → SSH → one-line setup script).
+- **Render** — push to `main` and Render auto-deploys. Set the same env vars in the service's **Environment** tab.
+
 ## Running it locally
 
 You need [Node.js](https://nodejs.org) (v20+) installed. Then, from this folder:
