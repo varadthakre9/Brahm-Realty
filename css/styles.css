@@ -173,22 +173,15 @@ p {
                      and the inner bar shrinks slightly to feel "settled"
    ============================================================================ */
 header#site-header {
-    --header-bg: rgba(250, 249, 246, 0.55);
-    --header-border: transparent;
+    --header-border: rgba(208, 197, 181, 0.35);
     --header-shadow: 0 0 0 rgba(0, 0, 0, 0);
-    background: var(--header-bg);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: #ffffff;
     border-bottom: 1px solid var(--header-border);
     box-shadow: var(--header-shadow);
-    transition: background-color 0.35s ease,
-                border-color 0.35s ease,
-                box-shadow 0.35s ease,
-                backdrop-filter 0.35s ease;
+    transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 header#site-header.is-scrolled {
-    --header-bg: rgba(250, 249, 246, 0.94);
-    --header-border: rgba(208, 197, 181, 0.55);
+    --header-border: rgba(208, 197, 181, 0.6);
     --header-shadow: 0 18px 38px -28px rgba(40, 35, 18, 0.22);
 }
 
@@ -215,68 +208,34 @@ header#site-header.is-scrolled .site-header__inner { height: 64px; }
     header#site-header.is-scrolled .site-header__inner { height: 56px; }
 }
 
-/* ---- Brand: full client logo + wordmark/tagline text beside it ---- */
+/* ---- Brand: single full lockup image (emblem + wordmark + tagline) ----
+   The new logo PNG already contains the wordmark and tagline, so we just
+   render it as one crisp horizontal image. Sizes are tuned so the lockup
+   has comfortable breathing room inside the 76/64px header. */
 .brand {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
     text-decoration: none;
 }
 .brand__logo {
-    height: 46px;
+    height: 50px;
     width: auto;
     display: block;
     transition: transform 0.35s ease, height 0.35s ease;
 }
 @media (min-width: 768px) {
-    .brand__logo { height: 56px; }
+    .brand__logo { height: 60px; }
 }
-header#site-header.is-scrolled .brand__logo { height: 48px; }
+header#site-header.is-scrolled .brand__logo { height: 50px; }
 @media (max-width: 767px) {
-    header#site-header.is-scrolled .brand__logo { height: 40px; }
+    header#site-header.is-scrolled .brand__logo { height: 42px; }
 }
 .brand:hover .brand__logo { transform: scale(1.04); }
-/* On dark footers, drop a soft gold glow so the logo lifts off the background. */
+/* Footer (dark background) — drop a soft gold glow so the lockup lifts. */
 .brand--dark .brand__logo {
-    height: 64px;
+    height: 72px;
     filter: drop-shadow(0 4px 14px rgba(216, 166, 44, 0.28));
 }
-
-/* Text lockup beside the logo — matches the gold gradient + Poppins of the
-   original logo artwork so it reads as a continuous wordmark. */
-.brand__text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    line-height: 1;
-    min-width: 0;
-}
-.brand__wordmark {
-    font-family: 'Poppins', 'Manrope', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 22px;
-    letter-spacing: -0.005em;
-    line-height: 1.05;
-    white-space: nowrap;
-    color: #c2851b;
-}
-@media (min-width: 768px) {
-    .brand__wordmark { font-size: 26px; }
-}
-.brand__tagline {
-    font-family: 'Poppins', 'Manrope', system-ui, sans-serif;
-    font-weight: 600;
-    font-size: 10px;
-    letter-spacing: 0.005em;
-    color: #c2851b;
-    margin-top: 3px;
-    white-space: nowrap;
-}
-@media (min-width: 768px) {
-    .brand__tagline { font-size: 12px; }
-}
-.brand--dark .brand__wordmark,
-.brand--dark .brand__tagline { color: #d8a62c; }
 
 /* ---- Desktop nav links ----------------------------------------------- */
 .site-nav-link {
