@@ -129,6 +129,14 @@ app.post('/api/logout', requireAuth, (req, res) => {
     res.json({ ok: true });
 });
 
+// Lightweight session-check endpoint. The admin panel calls this on page load
+// to verify the token in localStorage is still valid before showing the UI;
+// in-memory tokens are wiped on every server restart, so without this check
+// a stale token causes a jarring "Session expired" toast on first paint.
+app.get('/api/auth/check', requireAuth, (req, res) => {
+    res.json({ ok: true });
+});
+
 // ----------------------------------------------------------------- API: read
 app.get('/api/projects', async (req, res, next) => {
     try {

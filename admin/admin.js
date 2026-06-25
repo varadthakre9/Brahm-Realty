@@ -882,6 +882,17 @@
     });
 
     // ------------------------------------------------------------------- boot
-    if (getToken()) { showApp(); loadList().then(resetForm); }
-    else showLogin();
+    // If we have a saved token, verify it with the server before showing the
+    // admin UI. The server's in-memory token set is wiped on every restart, so
+    // a stale token from localStorage would otherwise pop a scary "Session
+    // expired" toast the moment the panel loads. Validate quietly first; if
+    // the token is bad, api()'s own 401 handler clears it and shows the login.
+    if (getToken()) {
+        api('GET', '/api/auth/check')
+            .then(() => { showApp(); return loadList(); })
+            .then(resetForm)
+            .catch(() => { /* stale token already handled by api()'s 401 path */ });
+    } else {
+        showLogin();
+    }
 })();
