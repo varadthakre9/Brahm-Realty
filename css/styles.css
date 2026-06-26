@@ -898,13 +898,67 @@ header#site-header.is-scrolled .brand__logo { height: 50px; }
 }
 
 /* ----------------------------------------------------------------------------
+   Partner marquee — auto-scrolling developer/client logos
+   ---------------------------------------------------------------------------- */
+.partner-strip {
+    background: transparent;
+}
+.partner-track {
+    width: max-content;
+    gap: 56px;
+    animation: partnerScroll 22s linear infinite;
+    will-change: transform;
+}
+@media (min-width: 768px) {
+    .partner-track { gap: 88px; animation-duration: 26s; }
+}
+.partner-strip:hover .partner-track {
+    animation-play-state: paused;
+}
+.partner-logo {
+    height: 62px;
+    width: auto;
+    flex: none;
+    opacity: 0.92;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.05));
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: auto;
+}
+.partner-logo:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+@media (min-width: 768px) {
+    .partner-logo { height: 88px; }
+}
+@keyframes partnerScroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+.partner-fade {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 56px;
+    pointer-events: none;
+    z-index: 2;
+}
+.partner-fade-left  { left: 0;  background: linear-gradient(to right, #faf9f6 0%, rgba(250, 249, 246, 0) 100%); }
+.partner-fade-right { right: 0; background: linear-gradient(to left,  #faf9f6 0%, rgba(250, 249, 246, 0) 100%); }
+@media (min-width: 768px) {
+    .partner-fade { width: 96px; }
+}
+
+/* ----------------------------------------------------------------------------
    Reduced-motion preferences — disable all decorative motion
    ---------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
     .animate-fade-up,
     .animate-bounce,
     .animate-ken-burns,
-    .float-cta { animation: none !important; }
+    .float-cta,
+    .partner-track { animation: none !important; }
     [data-reveal],
     [data-img-reveal] {
         opacity: 1 !important;
