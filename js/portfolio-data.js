@@ -97,29 +97,52 @@ ${priceBlock}
 </article>`;
     }
 
+    async function getJSON(url) {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+    }
+
     async function load() {
+        // Primary: live Node/Express API. Fallback: static JSON committed in
+        // the repo (works on static hosts like GitHub Pages where there is no
+        // backend). Both failing => designed empty state, never a tech error.
+        let list = [];
         try {
-            const res = await fetch('/api/projects', { cache: 'no-store' });
-            if (!res.ok) throw new Error('HTTP ' + res.status);
-            const list = await res.json();
-            const countEl = document.getElementById('projects-count');
-            const empty = document.getElementById('projects-empty');
-
-            if (!Array.isArray(list) || !list.length) {
-                grid.innerHTML = '';
-                if (countEl) countEl.textContent = '0';
-                if (empty) { empty.textContent = 'No projects yet — add them in the admin panel.'; empty.classList.remove('hidden'); }
-                return;
+            list = await getJSON('/api/projects');
+        } catch (apiErr) {
+            try {
+                list = await getJSON('data/projects.json');
+            } catch (staticErr) {
+                console.debug('Portfolio: API and static fallback both failed.',
+                    apiErr && apiErr.message, staticErr && staticErr.message);
             }
+        }
 
-            grid.innerHTML = list.map(cardHTML).join('');
-            if (countEl) countEl.textContent = String(list.length);
-            if (window.BhramPortfolio && typeof window.BhramPortfolio.init === 'function') {
-                window.BhramPortfolio.init();
+        const countEl = document.getElementById('projects-count');
+        const empty = document.getElementById('projects-empty');
+
+        if (!Array.isArray(list) || !list.length) {
+            grid.innerHTML = '';
+            if (countEl) countEl.textContent = '0';
+            if (empty) {
+                empty.innerHTML = `
+<div class="flex flex-col items-center text-center py-8">
+<span class="material-symbols-outlined text-primary text-4xl mb-4 opacity-60" aria-hidden="true">apartment</span>
+<p class="font-body-md text-body-md text-secondary leading-relaxed mb-6 max-w-md">Our portfolio is being curated. Please check back shortly, or speak with our concierge for inventory currently available.</p>
+<a href="index.html#contact" class="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary font-label-md text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-primary hover:text-white transition-all duration-300">Speak to Concierge
+<span class="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+</a>
+</div>`;
+                empty.classList.remove('hidden');
             }
-        } catch (err) {
-            grid.innerHTML = '<p class="text-center text-secondary py-20" style="grid-column:1/-1">Unable to load projects. Make sure the server is running (npm start).</p>';
-            console.debug('portfolio load failed:', err.message);
+            return;
+        }
+
+        grid.innerHTML = list.map(cardHTML).join('');
+        if (countEl) countEl.textContent = String(list.length);
+        if (window.BhramPortfolio && typeof window.BhramPortfolio.init === 'function') {
+            window.BhramPortfolio.init();
         }
     }
 

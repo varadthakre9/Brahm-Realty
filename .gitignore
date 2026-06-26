@@ -7,8 +7,12 @@ Thumbs.db
 
 # Node / server runtime
 node_modules/
-data/
 uploads/
+
+# Local SQLite DB + write-ahead-log files (anything in data/ EXCEPT the static
+# project fallback used by GitHub Pages and other static hosts).
+data/*
+!data/projects.json
 
 # Secrets (Cloudinary / Turso / admin login) — never commit
 .env

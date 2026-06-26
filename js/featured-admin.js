@@ -77,25 +77,59 @@ ${price}
         return res.json();
     }
 
+    // Primary source: live Node/Express API (used when a backend is running —
+    // local dev, Render, AWS, etc.).
+    async function fetchFromAPI() {
+        let list = await getJSON('/api/projects?homepage=1');
+        if (!Array.isArray(list) || !list.length) {
+            const all = await getJSON('/api/projects');
+            list = Array.isArray(all) ? all.slice(0, 3) : [];
+        }
+        return list;
+    }
+
+    // Fallback source: static JSON committed alongside the site. This is what
+    // makes the homepage work on a purely static host (e.g. GitHub Pages) where
+    // there is no /api endpoint to call. The file may be empty ([]); in that
+    // case we fall through to the designed empty state below.
+    async function fetchFromStatic() {
+        const all = await getJSON('data/projects.json');
+        if (!Array.isArray(all)) return [];
+        const homepage = all.filter((p) => p && (p.on_homepage || p.show_on_homepage));
+        return (homepage.length ? homepage : all).slice(0, 3);
+    }
+
     async function load() {
+        let list = [];
         try {
-            let list = await getJSON('/api/projects?homepage=1');
-            if (!Array.isArray(list) || !list.length) {
-                // Fallback: most recently added projects so the section isn't empty.
-                const all = await getJSON('/api/projects');
-                list = Array.isArray(all) ? all.slice(0, 3) : [];
+            list = await fetchFromAPI();
+        } catch (apiErr) {
+            try {
+                list = await fetchFromStatic();
+            } catch (staticErr) {
+                console.debug('Featured: API and static fallback both failed.',
+                    apiErr && apiErr.message, staticErr && staticErr.message);
             }
-            if (!list.length) {
-                grid.innerHTML = '<p class="text-secondary text-sm py-10">No featured estates yet — add projects in the admin panel.</p>';
-                return;
-            }
-            grid.innerHTML = list.map(cardHTML).join('');
-            if (window.BhramFeatured && typeof window.BhramFeatured.initDots === 'function') {
-                window.BhramFeatured.initDots();
-            }
-        } catch (err) {
-            grid.innerHTML = '<p class="text-secondary text-sm py-10">Unable to load featured estates. Make sure the server is running.</p>';
-            console.debug('Featured load failed:', err.message);
+        }
+
+        if (!Array.isArray(list) || !list.length) {
+            // Designed empty state — never expose a "server is down" technical
+            // message to visitors. Keeps the section looking intentional even
+            // before any projects are wired up.
+            grid.innerHTML = `
+<div class="col-span-full md:col-span-2 lg:col-span-3 flex flex-col items-center text-center py-12 md:py-14 px-6">
+<span class="material-symbols-outlined text-primary text-4xl mb-4 opacity-60" aria-hidden="true">apartment</span>
+<p class="font-body-md text-body-md text-secondary leading-relaxed mb-6 max-w-md">Our curated estates are being prepared. In the meantime, explore the full portfolio of residences and commercial spaces.</p>
+<a href="projects.html" class="inline-flex items-center gap-2 px-6 py-3 border border-primary text-primary font-label-md text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-primary hover:text-white transition-all duration-300">View Portfolio
+<span class="material-symbols-outlined text-base" aria-hidden="true">arrow_forward</span>
+</a>
+</div>`;
+            return;
+        }
+
+        grid.innerHTML = list.map(cardHTML).join('');
+        if (window.BhramFeatured && typeof window.BhramFeatured.initDots === 'function') {
+            window.BhramFeatured.initDots();
         }
     }
 
